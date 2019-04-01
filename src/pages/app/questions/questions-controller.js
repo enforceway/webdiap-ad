@@ -11,8 +11,10 @@ angular.module('app').controller('QuestionsController', ['$scope', '$http', func
         pageSize: 250,
         currentPage: 1
     };  
-    $scope.setPagingData = function(data, page, pageSize){
+    $scope.myData = [];
+    $scope.setPagingData = function(data, page, pageSize) {
         var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
+        debugger
         $scope.myData = pagedData;
         $scope.totalServerItems = data.length;
         if (!$scope.$$phase) {

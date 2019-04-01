@@ -13,23 +13,21 @@ angular.module('app')
   )
   .config(['$stateProvider', '$urlRouterProvider',
       function ($stateProvider,   $urlRouterProvider) {
-          
-          $urlRouterProvider
-              .otherwise('/app/dashboard-v1');
+          $urlRouterProvider.otherwise('/app/questions');
           $stateProvider
               .state('app', {
                   // abstract: true,
                   url: '/app',
-                  // resolve: {
-                  //     deps: ['$ocLazyLoad',
-                  //       function( $ocLazyLoad ){
-                  //         return $ocLazyLoad.load('ngGrid').then(
-                  //             function(){
-                  //                 return $ocLazyLoad.load('js/controllers/grid.js');
-                  //             }
-                  //         );
-                  //     }]
-                  // },
+                //   resolve: {
+                //       deps: ['$ocLazyLoad',
+                //         function( $ocLazyLoad ) {
+                //           return $ocLazyLoad.load('pages/app/app.js').then(
+                //               function() {
+                //                   return $ocLazyLoad.load('pages/app/app.js');
+                //               }
+                //           );
+                //       }]
+                //   },
                   templateUrl: 'pages/app/app.html'
               })
               // questions
