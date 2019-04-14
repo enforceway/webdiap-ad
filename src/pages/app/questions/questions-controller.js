@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').controller('QuestionsController', ['$scope', '$G', '$diModal', '$diResource', function($scope, $G, $diModal, $diResource) {
+angular.module('app').controller('QuestionsController', ['$scope', '$G', '$diModal', '$diResource', '$http', function($scope, $G, $diModal, $diResource, $http) {
     $scope.add = function() {
         $diModal.open({
             templateUrl: 'pages/app/questions/questions-add.html',

@@ -5,8 +5,27 @@ var util = require('util'),
     fs = require('fs'),
     url = require('url'),
     events = require('events');
+var httpProxy = require('http-proxy');
 
 var DEFAULT_PORT = 8000;
+
+var proxy = httpProxy.createProxyServer({
+  target: 'http://localhost:8080/',   //接口地址
+  // 下面的设置用于https
+  // ssl: {
+  //     key: fs.readFileSync('server_decrypt.key', 'utf8'),
+  //     cert: fs.readFileSync('server.crt', 'utf8')
+  // },
+  // secure: false
+});
+proxy.on('error', function(err, req, res) {
+  res.writeHead(500, {
+      'content-type': 'text/plain'
+  });
+  console.log(err);
+  res.end('Something went wrong. And we are reporting a custom error message.');
+});
+
 
 function main(argv) {
   new HttpServer({
@@ -51,6 +70,13 @@ HttpServer.prototype.parseUrl_ = function(urlString) {
 };
 
 HttpServer.prototype.handleRequest_ = function(req, res) {
+  var pathname = url.parse(req.url).pathname;
+  //判断如果是接口访问，则通过proxy转发
+  console.log('pathname:',pathname);
+  if(pathname.indexOf("/webdiapp") > 0) {
+    proxy.web(req, res);
+    return;
+  }
   var logEntry = req.method + ' ' + req.url;
   if (req.headers['user-agent']) {
     logEntry += ' ' + req.headers['user-agent'];

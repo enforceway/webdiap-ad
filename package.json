@@ -1,0 +1,27 @@
+{
+  "name": "webdiap-ad",
+  "version": "1.0.0",
+  "description": "",
+  "main": "web-server.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "http-proxy": "^1.17.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enforceway/webdiap-ad.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/enforceway/webdiap-ad/issues"
+  },
+  "homepage": "https://github.com/enforceway/webdiap-ad#readme"
+}
