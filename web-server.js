@@ -72,8 +72,8 @@ HttpServer.prototype.parseUrl_ = function(urlString) {
 HttpServer.prototype.handleRequest_ = function(req, res) {
   var pathname = url.parse(req.url).pathname;
   //判断如果是接口访问，则通过proxy转发
-  console.log('pathname:',pathname);
-  if(pathname.indexOf("/webdiapp") > 0) {
+  console.log('pathname:',pathname, pathname.indexOf("/webdiapp"));
+  if(pathname.indexOf("/webdiapp") > -1) {
     proxy.web(req, res);
     return;
   }

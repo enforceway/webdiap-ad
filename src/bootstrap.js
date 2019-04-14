@@ -110,6 +110,10 @@ app.config(['$controllerProvider', '$compileProvider', '$filterProvider', '$prov
     });
     
     axios.interceptors.response.use(function (response) {
+      if(response.status >= 200 && response.status < 400) {
+        return response.data && response.data.data;
+        // return response.data;
+      }
       return response;
     }, function (error) {
       return Promise.reject(error);

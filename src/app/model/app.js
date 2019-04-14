@@ -76,6 +76,6 @@ angular.module('app', [
     };
     return m;
 }).constant('$G', {
-    'addQuestion': 'http://localhost:8080/webdiapp/question/add',
-    'listQuestions': 'http://localhost:8080/webdiapp/question/list',
+    'addQuestion': '/webdiapp/question/add',
+    'listQuestions': '/webdiapp/question/list',
 });
