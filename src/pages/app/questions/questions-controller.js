@@ -1,6 +1,28 @@
 'use strict';
 
-angular.module('app').controller('QuestionsController', ['$scope', '$http', function($scope, $http) {
+angular.module('app').controller('QuestionsController', ['$scope', '$G', '$diModal', '$diResource', function($scope, $G, $diModal, $diResource) {
+    $scope.add = function() {
+        $diModal.open({
+            templateUrl: 'pages/app/questions/questions-add.html',
+            controller: 'addQuestionController',
+            backdrop: true,
+            // scope: $scope,
+            size: 'md'
+        });
+    };
+    $scope.getQuesitions = function(params) {
+        params = params || {};
+        $diResource.get({
+            url: $G.listQuestions,
+            data: {}
+        }).then(function(res) {
+            debugger;
+        });
+    };
+    $scope.search = function() {
+        $scope.getQuesitions({});
+    };
+    $scope.search();
     $scope.filterOptions = {
         filterText: "",
         useExternalFilter: true
@@ -10,11 +32,11 @@ angular.module('app').controller('QuestionsController', ['$scope', '$http', func
         pageSizes: [250, 500, 1000],
         pageSize: 250,
         currentPage: 1
-    };  
+    };
     $scope.myData = [];
     $scope.setPagingData = function(data, page, pageSize) {
         var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
-        debugger
+        // debugger
         $scope.myData = pagedData;
         $scope.totalServerItems = data.length;
         if (!$scope.$$phase) {

@@ -1,0 +1,42 @@
+<div ng-controller="addQuestionController">
+    <form name="form" class="form-validation form-horizontal">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span class="h4" translate="add"></span>
+            </div>
+            <div class="panel-body">
+                <p class="text-muted">Please fill the information to continue</p>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">题目内容: </em></label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-model="user.name" ng-pattern="/^[a-zA-Z0-9]{4,10}$/"
+                        required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">题目类型: </label>
+                    <div class="col-sm-10">
+                        <select name="account" class="form-control m-b" required>
+                            <option translate="plzselect"></option>
+                            <option>option 1</option>
+                            <option>option 2</option>
+                            <option>option 3</option>
+                            <option>option 4</option>
+                        </select>
+                    </div>
+                </div>
+<!--                 
+                <div class="checkbox">
+                    <label class="i-checks">
+                        <input type="checkbox" ng-model="agree" required><i></i> I agree to the <a href
+                            class="text-info">Terms of Service</a>
+                    </label>
+                </div> -->
+            </div>
+            <footer class="panel-footer text-right bg-light lter">
+                <button type="button" class="btn" ng-click="cancel()">取消</button>
+                <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">提交</button>
+            </footer>
+        </div>
+    </form>
+</div>

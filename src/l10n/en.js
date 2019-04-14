@@ -1,5 +1,6 @@
 {
-
+  "plzselect": "请选择",
+    "add": "新增题目",
 "header" : {
   "navbar" : {
     "UPLOAD" : "Upload",
