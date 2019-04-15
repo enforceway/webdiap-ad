@@ -10,13 +10,14 @@ angular.module('app').controller('QuestionsController', ['$scope', '$G', '$diMod
             size: 'md'
         });
     };
+    
     $scope.getQuesitions = function(params) {
         params = params || {};
         $diResource.get({
             url: $G.listQuestions,
             data: {}
         }).then(function(res) {
-            debugger;
+            // debugger;
         });
     };
     $scope.search = function() {

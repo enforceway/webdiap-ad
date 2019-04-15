@@ -78,4 +78,5 @@ angular.module('app', [
 }).constant('$G', {
     'addQuestion': '/webdiapp/question/add',
     'listQuestions': '/webdiapp/question/list',
+    'listQuestionTypes': '/webdiapp/questionType/list'
 });
