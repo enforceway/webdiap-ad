@@ -35,6 +35,11 @@ angular.module('app')
                   url: '/questions',
                   templateUrl: 'pages/app/questions/questions.html'
               })
+              // questions
+              .state('app.questionsTypes', {
+                url: '/questionsTypes',
+                templateUrl: 'pages/app/questionTypes/questionTypes.html'
+            })
               // table
               .state('app.table', {
                   url: '/table',

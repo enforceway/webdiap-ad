@@ -1,7 +1,9 @@
-<div ng-controller="QuestionsController">
+<div ng-controller="QuestionTypesController">
 	<div class="wrapper-md">
 		<div class="panel panel-default">
-			<div class="panel-heading" translate="aside.nav.QUESTIONS_MANAGE">题目管理</div>
+			<div class="panel-heading" translate="aside.nav.QUESTIONS_TYPES">
+				题目领域管理
+			</div>
 			<div class="row wrapper">
 				<div class="col-sm-5 m-b-xs">
 					<button class="btn m-b-xs btn-sm btn-primary btn-addon" ng-click="add()"><i class="fa fa-plus"></i><span translate="add"></span></button>
@@ -25,17 +27,15 @@
 									<input type="checkbox"><i></i>
 								</label>
 							</th>
-							<th>题目内容</th>
-							<th>题目所属领域</th>
+							<th>题目领域</th>
 							<th>创建日期</th>
 							<th>操作</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="que in questions">
+						<tr ng-repeat="que in questionsTypes">
 							<td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-							<td ng-bind="que.questionContent"></td>
-							<td ng-bind="que.questionType"></td>
+							<td ng-bind="que.type"></td>
 							<td ng-bind="que.creationTimestamp"></td>
 							<td>
 								<button class="btn m-b-xs btn-sm btn-default" ng-click="goToDelete(que)"><span>删除</span></button>

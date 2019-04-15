@@ -1,6 +1,6 @@
 {
   "plzselect": "请选择",
-    "add": "新增题目",
+    "add": "新增",
 "header" : {
   "navbar" : {
     "UPLOAD" : "Upload",
@@ -17,7 +17,9 @@
 "aside" : {
   "nav" : {
     "HEADER" : "Navigation",
-    "DASHBOARD" : "Dashboard",
+    "QUESTIONS" : "题目",
+    "QUESTIONS_MANAGE": "题目管理",
+    "QUESTIONS_TYPES": "题目领域管理",
     "CALENDAR" : "Calendar",
     "EMAIL" : "Email",
     "WIDGETS" : "Widgets",

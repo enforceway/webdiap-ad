@@ -83,6 +83,6 @@ angular.module('app', [
     'addQuestion': '/webdiapp/question/add',
     'updateQuestion': '/webdiapp/question/update',
     'listQuestions': '/webdiapp/question/list',
-    'listQuestionTypes': '/webdiapp/questionType/list'
+    'listQuestionTypes': '/webdiapp/questionType/list',
     
 });
