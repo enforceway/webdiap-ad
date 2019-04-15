@@ -2,6 +2,24 @@
 
 angular.module('app').controller('QuestionsController', ['$scope', '$G', '$diModal', '$diResource', '$http', 'toaster', function($scope, $G, $diModal, $diResource, $http, toaster) {
     $scope.questions = [];
+    $scope.goToUpdate = function(item) {
+        var $ns = $scope.$new();
+        $ns.item = item;
+        var $q = $diModal.open({
+            templateUrl: 'pages/app/questions/questions-add.html',
+            controller: 'addQuestionController',
+            backdrop: true,
+            // scope: $scope,
+            size: 'md',
+            scope: $ns,
+        });
+        $q.result.then(function() {
+            $scope.search();
+        });
+    };
+    $scope.goToDelete = function(item) {
+        
+    };
     $scope.add = function() {
         $diModal.open({
             templateUrl: 'pages/app/questions/questions-add.html',

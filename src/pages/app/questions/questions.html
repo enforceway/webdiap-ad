@@ -30,6 +30,7 @@
 							<th>题目内容</th>
 							<th>题目所属领域</th>
 							<th>创建日期</th>
+							<th>操作</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -38,6 +39,10 @@
 							<td ng-bind="que.questionContent"></td>
 							<td ng-bind="que.questionType"></td>
 							<td ng-bind="que.creationTimestamp"></td>
+							<td>
+								<button class="btn m-b-xs btn-sm btn-default" ng-click="goToDelete(que)"><span>删除</span></button>
+								<button class="btn m-b-xs btn-sm btn-primary" ng-click="goToUpdate(que)">编辑</button>
+							</td>
 						</tr>
 					</tbody>
 				</table>

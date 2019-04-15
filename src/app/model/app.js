@@ -47,6 +47,11 @@ angular.module('app', [
             backback(modalInstance);
             return modalInstance;
         },
+        close : function() {
+            var m = modalsStack.shift();
+            modalsStack.unshift(m);
+            m.close();
+        },
         dismiss : function() {
             var m = modalsStack.shift();
             modalsStack.unshift(m);
@@ -76,6 +81,8 @@ angular.module('app', [
     return m;
 }).constant('$G', {
     'addQuestion': '/webdiapp/question/add',
+    'updateQuestion': '/webdiapp/question/update',
     'listQuestions': '/webdiapp/question/list',
     'listQuestionTypes': '/webdiapp/questionType/list'
+    
 });

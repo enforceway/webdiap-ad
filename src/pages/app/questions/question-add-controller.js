@@ -10,7 +10,13 @@ angular.module('app').controller('addQuestionController', [
             questionContent: '',
             questionType: ''
         };
-        var self = $scope;
+        if($scope.item) {
+            debugger
+            $scope.typeForm.id = $scope.item.id;
+            $scope.typeForm.questionTypeId = $scope.item.questionTypeId + '';
+            $scope.typeForm.questionType = $scope.item.questionType;
+            $scope.typeForm.questionContent = $scope.item.questionContent;
+        }
         // 获取题目类型
         $scope.getQuestionTypes = function() {
             $diResource.get({
@@ -34,15 +40,26 @@ angular.module('app').controller('addQuestionController', [
                 return item.id == $scope.typeForm.questionTypeId;
             }).type;
 
-            $diResource.post({
-                url: $G.addQuestion,
-                data: self.typeForm
-            }).then(function(res) {
-                debugger
-                toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);
-                // debugger;
-            });
-            $diModal.dismiss();
+            if($scope.item) {
+                $diResource.post({
+                    url: $G.updateQuestion,
+                    data: self.typeForm
+                }).then(function(res) {
+                    debugger
+                    toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);
+                    // debugger;
+                });
+            } else {
+                $diResource.post({
+                    url: $G.addQuestion,
+                    data: self.typeForm
+                }).then(function(res) {
+                    debugger
+                    toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);
+                    // debugger;
+                });
+            }
+            $diModal.close();
         };
     }]
 );
