@@ -12,7 +12,8 @@ angular.module('app', [
     'ui.validate',
     'oc.lazyLoad',
     'pascalprecht.translate',
-    'ngGrid'
+    'ngGrid',
+    'toaster',
 ]).service('$diModal', ['$modal', function ($modal) {
     'use strict';
 
@@ -21,10 +22,8 @@ angular.module('app', [
         // var m = modalsStack.shift();
         instance.result.then(function() {
             modalsStack.shift();
-            debugger
         }, function() {
             modalsStack.shift();
-            debugger
         });
         modalsStack.push(instance);
     };

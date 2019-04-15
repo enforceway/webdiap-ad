@@ -16,7 +16,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">题目领域: </label>
                     <div class="col-sm-10">
-                        <select name="account" class="form-control m-b" required ng-model="typeForm.questionType">
+                        <select name="account" class="form-control m-b" required ng-model="typeForm.questionTypeId">
                             <option translate="plzselect"></option>
                             <option ng-repeat="tmp in types" ng-bind="tmp.type" value="{{tmp.id}}"></option>
                         </select>

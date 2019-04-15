@@ -1,6 +1,7 @@
 'use strict';
 
-angular.module('app').controller('QuestionsController', ['$scope', '$G', '$diModal', '$diResource', '$http', function($scope, $G, $diModal, $diResource, $http) {
+angular.module('app').controller('QuestionsController', ['$scope', '$G', '$diModal', '$diResource', '$http', 'toaster', function($scope, $G, $diModal, $diResource, $http, toaster) {
+    $scope.questions = [];
     $scope.add = function() {
         $diModal.open({
             templateUrl: 'pages/app/questions/questions-add.html',
@@ -17,7 +18,7 @@ angular.module('app').controller('QuestionsController', ['$scope', '$G', '$diMod
             url: $G.listQuestions,
             data: {}
         }).then(function(res) {
-            // debugger;
+            $scope.questions = res;
         });
     };
     $scope.search = function() {

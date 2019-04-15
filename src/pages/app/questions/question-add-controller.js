@@ -6,6 +6,7 @@ angular.module('app').controller('addQuestionController', [
         var self = $scope;
         $scope.types = [];
         $scope.typeForm = {
+            questionTypeId: '',
             questionContent: '',
             questionType: ''
         };
@@ -29,11 +30,15 @@ angular.module('app').controller('addQuestionController', [
             text: '添加成功'
         };
         $scope.submit = function() {
-            debugger
+            $scope.typeForm.questionType = $scope.types.find(function(item, index) {
+                return item.id == $scope.typeForm.questionTypeId;
+            }).type;
+
             $diResource.post({
                 url: $G.addQuestion,
                 data: self.typeForm
             }).then(function(res) {
+                debugger
                 toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);
                 // debugger;
             });
