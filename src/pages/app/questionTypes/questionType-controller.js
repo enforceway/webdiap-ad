@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app').controller('QuestionTypesController', ['$scope', '$G', '$diModal', '$diResource', '$http', 'toaster', function($scope, $G, $diModal, $diResource, $http, toaster) {
-    $scope.questionsTypes = [];
+    $scope.data4Questions = [];
     $scope.goToUpdate = function(item) {
         var $ns = $scope.$new();
         $ns.item = item;
@@ -33,11 +33,11 @@ angular.module('app').controller('QuestionTypesController', ['$scope', '$G', '$d
     $scope.getListData = function(params) {
         params = params || {};
         $diResource.get({
-            url: $G.listQuestionTypes,
+            url: $G.listQuestionaires,
             data: {}
         }).then(function(res) {
-            // debugger
-            $scope.questionsTypes = res;
+            debugger
+            $scope.data4Questions = res;
         });
     };
     $scope.search = function() {

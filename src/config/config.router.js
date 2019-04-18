@@ -39,7 +39,11 @@ angular.module('app')
               .state('app.questionsTypes', {
                 url: '/questionsTypes',
                 templateUrl: 'pages/app/questionTypes/questionTypes.html'
-            })
+              })
+              .state('app.questionaires', {
+                url: '/questionaires',
+                templateUrl: 'pages/app/questionaires/questionaire.html'
+              })
               // table
               .state('app.table', {
                   url: '/table',

@@ -20,6 +20,7 @@
     "QUESTIONS" : "题目",
     "QUESTIONS_MANAGE": "题目管理",
     "QUESTIONS_TYPES": "题目领域管理",
+    "QUESTIONAIRES": "问卷调查",
     "CALENDAR" : "Calendar",
     "EMAIL" : "Email",
     "WIDGETS" : "Widgets",

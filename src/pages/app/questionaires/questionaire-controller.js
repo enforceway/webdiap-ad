@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module('app').controller('QuestionsController', ['$scope', '$G', '$diModal', '$diResource', '$http', 'toaster', function($scope, $G, $diModal, $diResource, $http, toaster) {
-    $scope.questions = [];
+angular.module('app').controller('QuestionaireController', ['$scope', '$G', '$diModal', '$diResource', '$http', 'toaster', function($scope, $G, $diModal, $diResource, $http, toaster) {
+    $scope.data4Questionaires = [];
     $scope.goToUpdate = function(item) {
         var $ns = $scope.$new();
         $ns.item = item;
         var $q = $diModal.open({
-            templateUrl: 'pages/app/questions/questions-add.html',
+            templateUrl: 'pages/app/questionaires/questions-add.html',
             controller: 'addQuestionController',
             backdrop: true,
             // scope: $scope,
@@ -22,7 +22,7 @@ angular.module('app').controller('QuestionsController', ['$scope', '$G', '$diMod
     };
     $scope.add = function() {
         $diModal.open({
-            templateUrl: 'pages/app/questions/questions-add.html',
+            templateUrl: 'pages/app/questionairs/questions-add.html',
             controller: 'addQuestionController',
             backdrop: true,
             // scope: $scope,
@@ -30,24 +30,28 @@ angular.module('app').controller('QuestionsController', ['$scope', '$G', '$diMod
         });
     };
     
-    $scope.getQuesitions = function(params) {
+    $scope.getQuestionaires = function(params) {
         params = params || {};
         $diResource.get({
-            url: $G.listQuestions,
-            data: {}
+            url: $G.listQuestionaires,
+            data: {
+                pageNo: 1,
+                pageSize: 10,
+            }
         }).then(function(res) {
-            $scope.questions = res;
+            debugger
+            $scope.data4Questionaires = res;
         });
     };
     $scope.search = function() {
-        $scope.getQuesitions({});
+        $scope.getQuestionaires({});
     };
     $scope.search();
-    // $scope.filterOptions = {
-    //     filterText: "",
-    //     useExternalFilter: true
-    // }; 
-    // $scope.totalServerItems = 0;
+    $scope.filterOptions = {
+        filterText: "",
+        useExternalFilter: true
+    }; 
+    $scope.totalServerItems = 0;
     $scope.pagingOptions = {
         pageSizes: [250, 500, 1000],
         pageSize: 250,
@@ -56,7 +60,7 @@ angular.module('app').controller('QuestionsController', ['$scope', '$G', '$diMod
     $scope.myData = [];
     // $scope.setPagingData = function(data, page, pageSize) {
     //     var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
-    //     // debugger
+    //     debugger
     //     $scope.myData = pagedData;
     //     $scope.totalServerItems = data.length;
     //     if (!$scope.$$phase) {
