@@ -25,8 +25,10 @@
 									<input type="checkbox"><i></i>
 								</label>
 							</th>
-							<th>题目内容</th>
-							<th>题目所属领域</th>
+							<th>问卷主题</th>
+							<th>问卷状态</th>
+							<th>所属领域</th>
+							<th>有效期</th>
 							<th>创建日期</th>
 							<th>操作</th>
 						</tr>
@@ -34,8 +36,10 @@
 					<tbody>
 						<tr ng-repeat="que in data4Questionaires">
 							<td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-							<td ng-bind="que.questionContent"></td>
-							<td ng-bind="que.questionType"></td>
+							<td>主题..</td>
+							<td ng-bind="que.status"></td>
+							<td ng-bind="que.workingField"></td>
+							<td ng-bind="que.activeDateStart + que.activeDateEnd"></td>
 							<td ng-bind="que.creationTimestamp"></td>
 							<td>
 								<button class="btn m-b-xs btn-sm btn-default" ng-click="goToDelete(que)"><span>删除</span></button>
