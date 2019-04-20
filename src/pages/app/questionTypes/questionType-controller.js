@@ -36,7 +36,7 @@ angular.module('app').controller('QuestionTypesController', ['$scope', '$G', '$d
             url: $G.listQuestionaires,
             data: {}
         }).then(function(res) {
-            debugger
+            // debugger
             $scope.data4Questions = res;
         });
     };

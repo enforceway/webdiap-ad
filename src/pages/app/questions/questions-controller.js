@@ -6,7 +6,7 @@ angular.module('app').controller('QuestionsController', ['$scope', '$G', '$diMod
         var $ns = $scope.$new();
         $ns.item = item;
         var $q = $diModal.open({
-            templateUrl: 'pages/app/questions/questions-add.html',
+            templateUrl: 'pages/app/questions/question-add.html',
             controller: 'addQuestionController',
             backdrop: true,
             // scope: $scope,

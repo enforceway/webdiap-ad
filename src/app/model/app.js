@@ -21,11 +21,21 @@ angular.module('app', [
     function backback(instance) {
         // var m = modalsStack.shift();
         instance.result.then(function() {
-            modalsStack.shift();
+            // modalsStack.shift();
+            removeLatestModal('close');
         }, function() {
-            modalsStack.shift();
+            // modalsStack.shift();
+            removeLatestModal('dismiss');
         });
         modalsStack.push(instance);
+    };
+    function removeLatestModal(type) {
+        if(modalsStack.length) {
+            debugger
+            var m = modalsStack.slice(modalsStack.length - 1, modalsStack.length)
+            modalsStack = modalsStack.slice(0, modalsStack.length - 1);
+            m[0][type]();
+        }
     };
     var $diModal = {
         open : function (modalOptions) {
@@ -44,18 +54,15 @@ angular.module('app', [
                 //     }
                 // }
             });
+            // modalInstance.index = modalsStack.length + 1;
             backback(modalInstance);
             return modalInstance;
         },
         close : function() {
-            var m = modalsStack.shift();
-            modalsStack.unshift(m);
-            m.close();
+            // removeLatestModal('close');
         },
         dismiss : function() {
-            var m = modalsStack.shift();
-            modalsStack.unshift(m);
-            m.dismiss();
+            // removeLatestModal('dismiss');
         }
     };
     return $diModal;

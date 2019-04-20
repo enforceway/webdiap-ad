@@ -1,6 +1,12 @@
 {
   "plzselect": "请选择",
     "add": "新增",
+    "COMMON": {
+      "CONFIRM" : "确认"
+    },
+    "MODULES": {
+      "QUESTION_PANEL": "题班"
+    },
 "header" : {
   "navbar" : {
     "UPLOAD" : "Upload",

@@ -6,8 +6,8 @@ angular.module('app').controller('QuestionaireController', ['$scope', '$G', '$di
         var $ns = $scope.$new();
         $ns.item = item;
         var $q = $diModal.open({
-            templateUrl: 'pages/app/questionaires/questions-add.html',
-            controller: 'addQuestionController',
+            templateUrl: 'pages/app/questionaires/questionaire-add.html',
+            controller: 'addQuestionaireController',
             backdrop: true,
             // scope: $scope,
             size: 'md',
@@ -22,11 +22,11 @@ angular.module('app').controller('QuestionaireController', ['$scope', '$G', '$di
     };
     $scope.add = function() {
         $diModal.open({
-            templateUrl: 'pages/app/questionairs/questions-add.html',
+            templateUrl: 'pages/app/questionaires/questionaire-add.html',
             controller: 'addQuestionController',
             backdrop: true,
             // scope: $scope,
-            size: 'md'
+            size: 'lg'
         });
     };
     
@@ -39,7 +39,6 @@ angular.module('app').controller('QuestionaireController', ['$scope', '$G', '$di
                 pageSize: 10,
             }
         }).then(function(res) {
-            debugger
             $scope.data4Questionaires = res;
         });
     };
