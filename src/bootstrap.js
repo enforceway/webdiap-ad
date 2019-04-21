@@ -5,7 +5,7 @@
 
 var app = angular.module('app');
 app.controller('baseController', ['$scope', '$translate', '$localStorage', '$window', 
-    function(              $scope,   $translate,   $localStorage,   $window ) {
+    function($scope, $translate, $localStorage, $window) {
       // add 'ie' classes to html
       var isIE = !!navigator.userAgent.match(/MSIE/i);
       isIE && angular.element($window.document.body).addClass('ie');
@@ -89,7 +89,7 @@ app.config(['$controllerProvider', '$compileProvider', '$filterProvider', '$prov
         app.value      = $provide.value;
     }
   ])
-  .config(['$translateProvider', function($translateProvider){
+  .config(['$translateProvider', function($translateProvider) {
     // Register a loader for the static files
     // So, the module will search missing translation tables under the specified urls.
     // Those urls are [prefix][langKey][suffix].
@@ -101,22 +101,5 @@ app.config(['$controllerProvider', '$compileProvider', '$filterProvider', '$prov
     $translateProvider.preferredLanguage('zh');
     // Tell the module to store the language in the local storage
     $translateProvider.useLocalStorage();
-
-    // axios的回复
-    axios.interceptors.request.use(function (config) {
-      return config;
-    }, function (error) {
-      return Promise.reject(error);
-    });
-    
-    axios.interceptors.response.use(function (response) {
-      if(response.status >= 200 && response.status < 400) {
-        return response.data && response.data.data;
-        // return response.data;
-      }
-      return response;
-    }, function (error) {
-      return Promise.reject(error);
-    });
   }]);
 })();
