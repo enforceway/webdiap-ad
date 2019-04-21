@@ -1,24 +1,59 @@
 <div ng-controller="addQuestionaireController">
-    <form name="form" class="form-validation form-horizontal">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <span class="h4" translate="MODULES.QUESTION_PANEL">题班</span>
-            </div>
-            <div class="panel-body">
-                <!-- <p class="text-muted">Please fill the information to continue</p> -->
-                <div class="form-group">
-                    <div class="col-lg-6 col-sm-12 col-md-6">
-                        左侧题班
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-md-6">
-                        右侧题班
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span class="h4" translate="MODULES.TO_SELECT_QUESTION">待选择题目</span>
+        </div>
+        <div class="panel-body">
+            <form name="form" class="form-horizontal clearfix">
+                <div class="col-lg-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <div class="input-group" style="width: 50%; max-width: 200px;">
+                            <input type="text" class="input-sm form-control" placeholder="Search">
+                            <span class="input-group-btn">
+                                <button class="btn btn-sm btn-default" type="button">Go!</button>
+                            </span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <footer class="panel-footer text-right bg-light lter">
-                <button type="button" class="btn" ng-click="cancel()">取消</button>
-                <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid" ng-click="submit()"  translate="COMMON.CONFIRM">确认d</button>
-            </footer>
+                <div class="col-lg-5 col-sm-12 col-md-5">
+                    <div class="form-group">
+                        <table class="table table-striped b-t b-light">
+                            <thead class="well">
+                                <tr>
+                                    <th>题目内容</th>
+                                    <th>所属领域</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="que in data4Questions">
+                                    <td ng-bind="que.status"></td>
+                                    <td ng-bind="que.workingField"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-lg-1 col-sm-12 col-md-1">
+                    >
+                    &lt;
+                </div>
+                <div class="col-lg-6 col-sm-12 col-md-6">
+                    <table class="table table-striped b-t b-light">
+                        <thead class="well">
+                            <tr>
+                                <th>题目内容</th>
+                                <th>所属领域</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="que in data4SelectedQuestions">
+                                <td ng-bind="que.status"></td>
+                                <td ng-bind="que.workingField"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>

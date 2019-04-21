@@ -5,7 +5,8 @@
       "CONFIRM" : "确认"
     },
     "MODULES": {
-      "QUESTION_PANEL": "题班"
+      "QUESTION_PANEL": "题班",
+      "TO_SELECT_QUESTION": "待选择题目"
     },
 "header" : {
   "navbar" : {

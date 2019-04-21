@@ -31,7 +31,6 @@ angular.module('app', [
     };
     function removeLatestModal(type) {
         if(modalsStack.length) {
-            debugger
             var m = modalsStack.slice(modalsStack.length - 1, modalsStack.length)
             modalsStack = modalsStack.slice(0, modalsStack.length - 1);
             m[0][type]();
@@ -59,10 +58,18 @@ angular.module('app', [
             return modalInstance;
         },
         close : function() {
+            if(modalsStack.length) {
+                var tp = modalsStack[modalsStack.length - 1];
+                tp.close();
+            }
             // removeLatestModal('close');
         },
         dismiss : function() {
             // removeLatestModal('dismiss');
+            if(modalsStack.length) {
+                var tp = modalsStack[modalsStack.length - 1];
+                tp.dismiss();
+            }
         }
     };
     return $diModal;
