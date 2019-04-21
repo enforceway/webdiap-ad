@@ -1,4 +1,7 @@
 <style type="text/css">
+    .table-hover-bright tbody tr {
+        cursor: pointer;
+    }
     .table-hover-bright tbody tr:hover td {
         background-color: #edf1f2;
     }
@@ -31,7 +34,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="que in data4Questions">
+                                <tr ng-repeat="que in data4Questions" ng-click="selectQuestion(que)" ng-class="{'question-selected': ifExistedInSelected(que).data}">
                                     <td ng-bind="que.questionContent"></td>
                                     <td ng-bind="que.questionType"></td>
                                 </tr>
@@ -49,8 +52,8 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="que in data4SelectedQuestions">
-                                <td ng-bind="que.status"></td>
-                                <td ng-bind="que.workingField"></td>
+                                <td ng-bind="que.questionContent"></td>
+                                <td ng-bind="que.questionType"></td>
                             </tr>
                         </tbody>
                     </table>

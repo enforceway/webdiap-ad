@@ -73,6 +73,22 @@ angular.module('app', [
         }
     };
     return $diModal;
+}]).run(['$rootScope', '$state', function() {
+    // axios的回复
+    axios.interceptors.request.use(function (config) {
+        return config;
+    }, function (error) {
+        return Promise.reject(error);
+    });
+    axios.interceptors.response.use(function (response) {
+        if(response.status >= 200 && response.status < 400) {
+            return response.data && response.data.data;
+            // return response.data;
+        }
+        return response;
+    }, function (error) {
+        return Promise.reject(error);
+    });
 }]).factory('$diResource', function() {
     var m = {
         get: function(opts) {
