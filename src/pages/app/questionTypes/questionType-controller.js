@@ -37,7 +37,9 @@ angular.module('app').controller('QuestionTypesController', ['$scope', '$G', '$d
             data: {}
         }).then(function(res) {
             // debugger
-            $scope.data4Questions = res;
+            $scope.$apply(function () {
+                $scope.data4Questions = res;
+            });
         });
     };
     $scope.search = function() {

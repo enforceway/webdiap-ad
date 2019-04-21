@@ -39,7 +39,9 @@ angular.module('app').controller('QuestionaireController', ['$scope', '$G', '$di
                 pageSize: 10,
             }
         }).then(function(res) {
-            $scope.data4Questionaires = res;
+            $scope.$apply(function () {
+                $scope.data4Questionaires = res;
+            });
         });
     };
     $scope.search = function() {

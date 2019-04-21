@@ -36,7 +36,9 @@ angular.module('app').controller('QuestionsController', ['$scope', '$G', '$diMod
             url: $G.listQuestions,
             data: {}
         }).then(function(res) {
-            $scope.questions = res;
+            $scope.$apply(function () {
+                $scope.questions = res;
+            });
         });
     };
     $scope.search = function() {

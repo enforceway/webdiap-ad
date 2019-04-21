@@ -1,3 +1,8 @@
+<style type="text/css">
+    .table-hover-bright tbody tr:hover td {
+        background-color: #edf1f2;
+    }
+</style>
 <div ng-controller="addQuestionaireController">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -15,9 +20,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-5 col-sm-12 col-md-5">
+                <div class="col-lg-6 col-sm-12 col-md-6">
+                    <div style="display: none;">{{data4Questions}}</div>
                     <div class="form-group">
-                        <table class="table table-striped b-t b-light">
+                        <table class="table table-striped b-t b-light table-hover-bright">
                             <thead class="well">
                                 <tr>
                                     <th>题目内容</th>
@@ -26,16 +32,12 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="que in data4Questions">
-                                    <td ng-bind="que.status"></td>
-                                    <td ng-bind="que.workingField"></td>
+                                    <td ng-bind="que.questionContent"></td>
+                                    <td ng-bind="que.questionType"></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                </div>
-                <div class="col-lg-1 col-sm-12 col-md-1">
-                    >
-                    &lt;
                 </div>
                 <div class="col-lg-6 col-sm-12 col-md-6">
                     <table class="table table-striped b-t b-light">
