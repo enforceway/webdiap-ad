@@ -1,8 +1,27 @@
-<ul class="selected-question-list">
-    <li ng-repeat="item in data track by item.id">
-        <div class="question-item-container">
-            <label ng-bind="$index"></label>
-            <p ng-bind="item.questionContent"></p>
-        </div>
-    </li>
-</ul>
+<div class="question-item-table">
+    <style>
+
+    </style>
+    <ol ng-if="data.length > 0" style="list-style: none;">
+        <li class="table-head">
+            <ul class="clearfix" style="list-style: none;text-align: left;">
+                <li class="col-md-1 col-sm-1 col-lg-1"><label>序号</label></li>
+                <li class="col-md-7 col-sm-7 col-lg-7"><label>题目内容</label></li>
+                <li class="col-md-3 col-sm-3 col-lg-3"><label>操作</label></li>
+            </ul>
+        </li>
+        <li ng-repeat="item in data track by item.id" class="item-group">
+            <ul class="clearfix" style="list-style: none;text-align: left;">
+                <li class="col-md-1 col-sm-1 col-lg-1"><label ng-bind="$index"></label></li>
+                <li class="col-md-7 col-sm-7 col-lg-7"><label ng-bind="item.questionContent"></label></li>
+                <li class="col-md-3 col-sm-3 col-lg-3">
+                    <button type="button" class="btn btn-xs">添加备选答案</button>
+                    <button type="submit" class="btn btn-xs">移除该题目</button>
+                </li>
+            </ul>
+        </li>
+    </ol>
+    <p ng-if="data.length == 0">
+        暂无数据
+    </p>
+</div>

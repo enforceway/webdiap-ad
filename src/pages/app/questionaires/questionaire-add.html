@@ -39,11 +39,13 @@
                     </div> -->
                 </div>
                 <div class="line line-dashed b-b line-lg pull-in"></div>
-                <div class="">
+                <div>
                     <button class="btn m-b-xs btn-sm btn-primary btn-addon" ng-click="addQuestionItem()"><i class="fa fa-plus"></i><span translate="add"></span></button>
                 </div>
-                <div class="col-md-12">
-                    <question-item-table data="selectedQuestionItems"></question-item-table>
+                <div class="clearfix">
+                    <div class="col-md-12">
+                        <question-item-table data="selectedQuestionItems"></question-item-table>
+                    </div>
                 </div>
                 <footer class="panel-footer text-right bg-light lter">
                     <button type="button" class="btn" ng-click="cancel()">返回</button>

@@ -8,7 +8,6 @@ angular.module('app').controller('addQuestionaireController', [
         $scope.selectedQuestionItems = [];
         $scope.selectedQuestionConfirm = function(data) {
             $scope.selectedQuestionItems = data || []
-            debugger
         };
         $scope.addQuestionItem = function() {
             var tmp = $diModal.open({
