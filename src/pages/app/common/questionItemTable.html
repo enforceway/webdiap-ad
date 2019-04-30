@@ -1,0 +1,8 @@
+<ul class="selected-question-list">
+    <li ng-repeat="item in data track by item.id">
+        <div class="question-item-container">
+            <label ng-bind="$index"></label>
+            <p ng-bind="item.questionContent"></p>
+        </div>
+    </li>
+</ul>

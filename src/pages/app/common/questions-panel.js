@@ -10,7 +10,6 @@ angular.module('app').controller('questionPanelController', [
             $diModal.close();
         };
         $scope.confirmSelectQuestions = function() {
-            debugger
             $scope.$emit('evt4SelectQuestions', this.data4SelectedQuestions);
             // $scope.$emit('evt4SelectQuestions', this.data4SelectedQuestions);
             $diModal.close(this.data4SelectedQuestions);

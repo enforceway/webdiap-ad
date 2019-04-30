@@ -1,11 +1,13 @@
 'use strict';
 
 angular.module('app').controller('addQuestionaireController', [
-    '$scope', '$http', '$diModal', '$diResource', '$G', 'toaster',
-    function($scope, $http, $diModal, $diResource, $G, toaster) {
+    '$state', '$scope', '$http', '$diModal', '$diResource', '$G', 'toaster',
+    function($state, $scope, $http, $diModal, $diResource, $G, toaster) {
         var self = $scope;
         $scope.questionaireForm = {};
+        $scope.selectedQuestionItems = [];
         $scope.selectedQuestionConfirm = function(data) {
+            $scope.selectedQuestionItems = data || []
             debugger
         };
         $scope.addQuestionItem = function() {
@@ -33,7 +35,7 @@ angular.module('app').controller('addQuestionaireController', [
             text: '已发布'
         }];
         $scope.cancel = function() {
-            $diModal.dismiss();
+            $state.go('app.questionaires');
         };
         $scope.toaster = {
             type: 'success',

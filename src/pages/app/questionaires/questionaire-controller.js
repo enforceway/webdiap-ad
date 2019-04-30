@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').controller('QuestionaireController', ['$scope', '$G', '$diModal', '$diResource', '$http', 'toaster', function($scope, $G, $diModal, $diResource, $http, toaster) {
+angular.module('app').controller('QuestionaireController', ['$state', '$scope', '$G', '$diModal', '$diResource', '$http', 'toaster', function($state, $scope, $G, $diModal, $diResource, $http, toaster) {
     $scope.data4Questionaires = [];
     $scope.goToUpdate = function(item) {
         var $ns = $scope.$new();
@@ -24,13 +24,14 @@ angular.module('app').controller('QuestionaireController', ['$scope', '$G', '$di
         
     };
     $scope.add = function() {
-        $diModal.open({
-            templateUrl: 'pages/app/questionaires/questionaire-add.html',
-            controller: 'addQuestionController',
-            backdrop: true,
-            // scope: $scope,
-            size: 'lg'
-        });
+        $state.go('app.addQuestionaire');
+        // $diModal.open({
+        //     templateUrl: 'pages/app/questionaires/questionaire-add.html',
+        //     controller: 'addQuestionController',
+        //     backdrop: true,
+        //     // scope: $scope,
+        //     size: 'lg'
+        // });
     };
     
     $scope.getQuestionaires = function(params) {
