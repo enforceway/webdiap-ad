@@ -57,18 +57,18 @@ angular.module('app', [
             backback(modalInstance);
             return modalInstance;
         },
-        close : function() {
+        close : function(args) {
             if(modalsStack.length) {
                 var tp = modalsStack[modalsStack.length - 1];
-                tp.close();
+                tp.close(args);
             }
             // removeLatestModal('close');
         },
-        dismiss : function() {
+        dismiss : function(args) {
             // removeLatestModal('dismiss');
             if(modalsStack.length) {
                 var tp = modalsStack[modalsStack.length - 1];
-                tp.dismiss();
+                tp.dismiss(args);
             }
         }
     };

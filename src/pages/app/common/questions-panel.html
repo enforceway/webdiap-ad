@@ -13,7 +13,7 @@
         </div>
         <div class="panel-body">
             <form name="form" class="form-horizontal clearfix">
-                <div class="col-lg-12 col-sm-12 col-md-12">
+                <div class="col-md-12">
                     <div class="form-group">
                         <div class="input-group" style="width: 50%; max-width: 200px;">
                             <input type="text" class="input-sm form-control" placeholder="Search">
@@ -23,9 +23,27 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-sm-12 col-md-6">
-                    <div style="display: none;">{{data4Questions}}</div>
-                    <div class="form-group">
+                <div class="clearfix">
+                    <div class="col-lg-6 col-sm-12 col-md-6">
+                        <div style="display: none;">{{data4Questions}}</div>
+                        <div class="form-group">
+                            <table class="table table-striped b-t b-light table-hover-bright">
+                                <thead class="well">
+                                    <tr>
+                                        <th>题目内容</th>
+                                        <th>所属领域</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="que in data4Questions" ng-click="selectQuestion(que)" ng-class="{'question-selected': ifExistedInSelected(que).data}">
+                                        <td ng-bind="que.questionContent"></td>
+                                        <td ng-bind="que.questionType"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12 col-md-6">
                         <table class="table table-striped b-t b-light table-hover-bright">
                             <thead class="well">
                                 <tr>
@@ -34,7 +52,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="que in data4Questions" ng-click="selectQuestion(que)" ng-class="{'question-selected': ifExistedInSelected(que).data}">
+                                <tr ng-repeat="que in data4SelectedQuestions" ng-click="unselectQuestion(que)">
                                     <td ng-bind="que.questionContent"></td>
                                     <td ng-bind="que.questionType"></td>
                                 </tr>
@@ -42,21 +60,13 @@
                         </table>
                     </div>
                 </div>
-                <div class="col-lg-6 col-sm-12 col-md-6">
-                    <table class="table table-striped b-t b-light">
-                        <thead class="well">
-                            <tr>
-                                <th>题目内容</th>
-                                <th>所属领域</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="que in data4SelectedQuestions">
-                                <td ng-bind="que.questionContent"></td>
-                                <td ng-bind="que.questionType"></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="clearfix">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <button class="btn m-b-xs w-xs btn-default" ng-click="cancelSelectQuestions()">取消</button>
+                        <button class="btn m-b-xs w-xs btn-primary" ng-click="confirmSelectQuestions()">确认</button>
+                    </div>
+                    <div class="col-md-4"></div>
                 </div>
             </form>
         </div>

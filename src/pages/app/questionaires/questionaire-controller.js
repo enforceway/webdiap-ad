@@ -17,6 +17,9 @@ angular.module('app').controller('QuestionaireController', ['$scope', '$G', '$di
             $scope.search();
         });
     };
+    $scope.$on('evt4SelectQuestions', function(args) {
+        debugger
+    })
     $scope.goToDelete = function(item) {
         
     };

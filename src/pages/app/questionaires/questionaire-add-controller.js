@@ -5,8 +5,11 @@ angular.module('app').controller('addQuestionaireController', [
     function($scope, $http, $diModal, $diResource, $G, toaster) {
         var self = $scope;
         $scope.questionaireForm = {};
+        $scope.selectedQuestionConfirm = function(data) {
+            debugger
+        };
         $scope.addQuestionItem = function() {
-            $diModal.open({
+            var tmp = $diModal.open({
                 templateUrl: 'pages/app/common/questions-panel.html',
                 controller: 'questionPanelController',
                 backdrop: true,
@@ -19,6 +22,8 @@ angular.module('app').controller('addQuestionaireController', [
                     }
                 }
             });
+            // 对选择的题目进行确认的方法
+            tmp.result.then($scope.selectedQuestionConfirm)
         };
         $scope.statusArray = [{
             value: '1',
