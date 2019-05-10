@@ -21,6 +21,21 @@ angular.module('app').directive('questionItemTable', function() {
         scope: {
             data: '=?',
         },
+        controller: ['$scope', function($scope) {
+            $scope.toggleQuestionItemAnswers = function(rowData, evt) {
+                rowData.$$answersOnShow = !rowData.$$answersOnShow
+            };
+        }],
+        link: function($scope, element, attrs, $controller) {
+            // $scope.questionItemClick = function(rowData, evt) {
+            //     debugger
+            //     var rowDom = angular.element(evt.srcElement || evt.target);
+            //     if(angular.element(evt.srcElement || evt.target)) {
+    
+            //     }
+            //     debugger
+            // };
+        },
         replace: true
     };
 });

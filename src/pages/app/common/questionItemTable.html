@@ -1,105 +1,192 @@
-<div class="question-item-table clearfix">
+<div class="question-item-table">
     <style>
+        .question-item-table table thead th {
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 20px;
+        }
+        .question-item-table table tbody td {
+            padding-bottom: 20px;
+        }
+        .question-item-table .question-item-type {
+            width: auto;
+        }
 
+.question-item-table .table > tbody > tr > td span.footable-toggle {
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'footable';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  padding-right: 5px;
+  font-size: 14px;
+  color: #888888;
+}
+
+.question-item-table .table > tbody > tr.question-item-answers-active > td span.footable-toggle:before {
+  content: "\e001";
+}
+.question-item-table .table > tbody > tr > td span.footable-toggle:before {
+  content: "\e000";
+}
+
+.question-item-table .table.toggle-circle > tbody > tr.question-item-answers-active > td span.footable-toggle:before {
+  content: "\e005";
+}
+.question-item-table .table.toggle-circle > tbody > tr > td span.footable-toggle:before {
+  content: "\e004";
+}
+
+.question-item-table .table.toggle-circle-filled > tbody > tr.question-item-answers-active > td span.footable-toggle:before {
+  content: "\e003";
+}
+.question-item-table .table.toggle-circle-filled > tbody > tr > td span.footable-toggle:before {
+  content: "\e002";
+}
+
+.question-item-table .table.toggle-square > tbody > tr.question-item-answers-active > td span.footable-toggle:before {
+  content: "\e007";
+}
+.question-item-table .table.toggle-square > tbody > tr > td span.footable-toggle:before {
+  content: "\e006";
+}
+
+.question-item-table .table.toggle-square-filled > tbody > tr.question-item-answers-active > td span.footable-toggle:before {
+  content: "\e009";
+}
+.question-item-table .table.toggle-square-filled > tbody > tr > td span.footable-toggle:before {
+  content: "\e008";
+}
+
+.question-item-table .table.toggle-arrow > tbody > tr.question-item-answers-active > td span.footable-toggle:before {
+  content: "\e00f";
+}
+.question-item-table .table.toggle-arrow > tbody > tr > td span.footable-toggle:before {
+  content: "\e011";
+}
+
+.question-item-table .table.toggle-arrow-small > tbody > tr.question-item-answers-active > td span.footable-toggle:before {
+  content: "\e013";
+}
+.question-item-table .table.toggle-arrow-small > tbody > tr > td span.footable-toggle:before {
+  content: "\e015";
+}
+
+.question-item-table .table.toggle-arrow-circle > tbody > tr.question-item-answers-active > td span.footable-toggle:before {
+  content: "\e01b";
+}
+.question-item-table .table.toggle-arrow-circle > tbody > tr > td span.footable-toggle:before {
+  content: "\e01d";
+}
+
+.question-item-table .table.toggle-arrow-circle-filled > tbody > tr.question-item-answers-active > td span.footable-toggle:before {
+  content: "\e00b";
+}
+.question-item-table .table.toggle-arrow-circle-filled > tbody > tr > td span.footable-toggle:before {
+  content: "\e00d";
+}
+
+.question-item-table .table.toggle-arrow-tiny > tbody > tr.question-item-answers-active > td span.footable-toggle:before {
+  content: "\e01f";
+}
+.question-item-table .table.toggle-arrow-tiny > tbody > tr > td span.footable-toggle:before {
+  content: "\e021";
+}
+
+.question-item-table .table.toggle-arrow-alt > tbody > tr.question-item-answers-active > td span.footable-toggle:before {
+  content: "\e017";
+}
+.question-item-table .table.toggle-arrow-alt > tbody > tr > td span.footable-toggle:before {
+  content: "\e019";
+}
+
+.question-item-table .table.toggle-medium > tbody > tr > td span.footable-toggle {
+  font-size: 18px;
+}
+.question-item-table .table.toggle-large > tbody > tr > td span.footable-toggle {
+  font-size: 24px;
+}
     </style>
-    <div class="col-md-2 col-sm-2 col-lg-2">
+    <div class="panel">
+        <div class="panel-heading">问卷主题部分</div>
+        <!-- <div class="row wrapper">
+            
+        </div> -->
+        <div class="table-responsive" style="padding-bottom: 0px;">
+            <table class="table table-striped m-b-none tablet">
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="col-md-1 col-sm-1 col-lg-1">序号</div>
+                            <div class="col-md-3 col-sm-3 col-lg-3">操作</div>
+                            <div class="col-md-7 col-sm-7 col-lg-7">题目内容</div>
+                            <div class="col-md-1 col-sm-1 col-lg-1">状态</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-if="data.length == 0"><td colspan="4" style="text-align: center;">暂无任何题目添加</td></tr>
+
+                    <tr ng-repeat="item in data track by item.id" class="item-group" ng-class="{'question-item-answers-active': !!item.$$answersOnShow}">
+                        <td>
+                            <!-- 题目内容区域 -->
+                            <div class="clearfix" >
+                                <div class="col-md-1 col-sm-1 col-lg-1">
+                                    <span class="footable-toggle" ng-click="toggleQuestionItemAnswers(item, $event)"></span><label ng-bind="($index + 1)"></label>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-lg-3">
+                                    <div class="clearfix">
+                                        <div class="m-b-sm" style="float:left;">
+                                            <div class="btn-group dropdown" dropdown>
+                                                <label class="btn btn-sm btn-success">操作</label>
+                                                <button class="btn btn-sm btn-success" style="margin-left: 0px;" dropdown-toggle><span class="caret"></span></button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="javascript:void(0)">移除该题目</a></li>
+                                                    <li><a href="javascript:void(0)">Another action</a></li>
+                                                    <li><a href="javascript:void(0)">Something else here</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="javascript:void(0)">Separated link</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!-- <div style="float:left;">
+                                            <button title="移除" class="btn input-sm btn-info question-addon"><i class="fa fa-trash-o" style="margin-right: 0;"></i></button>
+                                        </div> -->
+                                        <!-- <button type="button" class="btn btn-xs">添加备选答案</button> -->
+                                        <!-- <button type="submit" class="btn btn-xs">移除该题目</button> -->
+                                    </div>
+                                </div>
+                                <div class="col-md-7 col-sm-7 col-lg-7">
+                                    <p><label ng-bind="item.questionContent"></label></p>
+                                </div>
+                                <div>
+                                    <span class="label bg-light" title="禁用" ng-if="item.disabled">Disabled</span>
+                                    <span class="label bg-success" title="可用" ng-if="!item.disabled">Active</span>
+                                </div>
+                            </div>
+
+                            <!-- 题目候选答案部分 -->
+                            <div class="question-item-answers" ng-show="!!item.$$answersOnShow">
+                                <div class="col-md-1 col-sm-1 col-lg-1"></div>
 
 
-    </div>
-    <div class="col-md-10 col-sm-10 col-lg-10">
-        <table ui-jq="footable" data-filter="#filter" data-page-size="5">
-            <thead>
-                <tr>
-                    <th class="col-md-1 col-sm-1 col-lg-1"><label>序号</label></th>
-                    <th class="col-md-7 col-sm-7 col-lg-7"><label>题目内容</label></th>
-                    <th class="col-md-3 col-sm-3 col-lg-3"><label>操作</label></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-if="data.length == 0"><td colspan="3">暂无数据</td></tr>
-                <!-- <tr ng-if="data.length > 0" ng-repeat="item in data track by item.id" class="clearfix">
-                    <td class="col-md-1 col-sm-1 col-lg-1"><label ng-bind="$index"></label></td>
-                    <td class="col-md-7 col-sm-7 col-lg-7"><label ng-bind="item.questionContent"></label></td>
-                    <td class="col-md-3 col-sm-3 col-lg-3">
-                        <button type="button" class="btn btn-xs">添加备选答案</button>
-                        <button type="submit" class="btn btn-xs">移除该题目</button>
-                    </td>
-                </tr> -->
-                <tr>
-                    <td>Isidra</td>
-                    <td><a href>Boudreaux</a></td>
-                    <td>Traffic Court Referee</td>
-                    <td data-value="78025368997">22 Jun 1972</td>
-                    <td data-value="1"><span class="label bg-success" title="Active">Active</span></td>
-                </tr>
-                <tr>
-                    <td>Shona</td>
-                    <td>Woldt</td>
-                    <td><a href>Airline Transport Pilot</a></td>
-                    <td data-value="370961043292">3 Oct 1981</td>
-                    <td data-value="2"><span class="label bg-light" title="Disabled">Disabled</span></td>
-                </tr>
-                <tr>
-                    <td>Granville</td>
-                    <td>Leonardo</td>
-                    <td>Business Services Sales Representative</td>
-                    <td data-value="-22133780420">19 Apr 1969</td>
-                    <td data-value="3"><span class="label bg-warning" title="Suspended">Suspended</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Easer</td>
-                    <td>Dragoo</td>
-                    <td>Drywall Stripper</td>
-                    <td data-value="250833505574">13 Dec 1977</td>
-                    <td data-value="1"><span class="label bg-success" title="Active">Active</span></td>
-                </tr>
-                <tr>
-                    <td>Maple</td>
-                    <td>Halladay</td>
-                    <td>Aviation Tactical Readiness Officer</td>
-                    <td data-value="694116650726">30 Dec 1991</td>
-                    <td data-value="3"><span class="label bg-warning" title="Suspended">Suspended</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Maxine</td>
-                    <td><a href>Woldt</a></td>
-                    <td><a href>Business Services Sales Representative</a></td>
-                    <td data-value="561440464855">17 Oct 1987</td>
-                    <td data-value="2"><span class="label bg-light" title="Disabled">Disabled</span></td>
-                </tr>
-                <tr>
-                    <td>Lorraine</td>
-                    <td>Mcgaughy</td>
-                    <td>Hemodialysis Technician</td>
-                    <td data-value="437400551390">11 Nov 1983</td>
-                    <td data-value="2"><span class="label bg-light" title="Disabled">Disabled</span></td>
-                </tr>
-                <tr>
-                    <td>Lizzee</td>
-                    <td><a href>Goodlow</a></td>
-                    <td>Technical Services Librarian</td>
-                    <td data-value="-257733999319">1 Nov 1961</td>
-                    <td data-value="3"><span class="label bg-warning" title="Suspended">Suspended</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Judi</td>
-                    <td>Badgett</td>
-                    <td>Electrical Lineworker</td>
-                    <td data-value="362134712000">23 Jun 1981</td>
-                    <td data-value="1"><span class="label bg-success" title="Active">Active</span></td>
-                </tr>
-                <tr>
-                    <td>Lauri</td>
-                    <td>Hyland</td>
-                    <td>Blackjack Supervisor</td>
-                    <td data-value="500874333932">15 Nov 1985</td>
-                    <td data-value="3"><span class="label bg-warning" title="Suspended">Suspended</span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                                <div>
+                                    <select name="account" class="question-item-type input-sm">
+                                        <option value="">请选择</option>
+                                        <option value="option 1">多选</option>
+                                        <option value="option 2">单选</option>
+                                        <option value="option 3">文本输入</option>
+                                        <option value="option 4">长文本输入</option>
+                                    </select>    
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

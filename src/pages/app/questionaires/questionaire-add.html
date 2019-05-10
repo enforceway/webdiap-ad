@@ -1,57 +1,56 @@
-<style>
-.selected-question-list {
-    list-style: none;
+<div>
+    <style>
 
-}
-</style>
-<div ng-controller="addQuestionaireController">
-    <div class="wrapper-md">
-        <form name="form" class="form-validation form-horizontal">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <span class="h4" translate="add"></span>
-                </div>
-                <div class="panel-body">
-                    <!-- <p class="text-muted">Please fill the information to continue</p> -->
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">问卷调查主题: </em></label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" ng-model="questionaireForm.theme" 
-                            required>
+    </style>
+    <div ng-controller="addQuestionaireController">
+        <div class="wrapper-md">
+            <form name="form" class="form-validation form-horizontal">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span class="h4" translate="add"></span>
+                    </div>
+                    <div class="panel-body">
+                        <!-- <p class="text-muted">Please fill the information to continue</p> -->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">问卷调查主题: </em></label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="questionaireForm.theme" 
+                                required>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="col-sm-2 control-label">状态: </label>
+                            <div class="col-sm-10">
+                                <select name="account" class="form-control m-b" required ng-model="questionaireForm.status">
+                                    <option translate="plzselect"></option>
+                                    <option ng-repeat="tmp in statusArray" ng-bind="tmp.text" value="{{tmp.value}}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        
+        <!--                 
+                        <div class="checkbox">
+                            <label class="i-checks">
+                                <input type="checkbox" ng-model="agree" required><i></i> I agree to the <a href
+                                    class="text-info">Terms of Service</a>
+                            </label>
+                        </div> -->
+                    </div>
+                    <div class="line line-dashed b-b line-xs pull-in m-b"></div>
+                    <div>
+                        <button class="btn m-b-xs btn-sm btn-primary btn-addon" ng-click="addQuestionItem()"><i class="fa fa-plus"></i><span translate="add"></span></button>
+                    </div>
+                    <div class="clearfix">
+                        <div>
+                            <question-item-table data="selectedQuestionItems"></question-item-table>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">状态: </label>
-                        <div class="col-sm-10">
-                            <select name="account" class="form-control m-b" required ng-model="questionaireForm.status">
-                                <option translate="plzselect"></option>
-                                <option ng-repeat="tmp in statusArray" ng-bind="tmp.text" value="{{tmp.value}}"></option>
-                            </select>
-                        </div>
-                    </div>
-                    
-    <!--                 
-                    <div class="checkbox">
-                        <label class="i-checks">
-                            <input type="checkbox" ng-model="agree" required><i></i> I agree to the <a href
-                                class="text-info">Terms of Service</a>
-                        </label>
-                    </div> -->
+                    <footer class="panel-footer text-right bg-light lter">
+                        <button type="button" class="btn" ng-click="cancel()">返回</button>
+                        <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid" ng-click="submit()">提交</button>
+                    </footer>
                 </div>
-                <div class="line line-dashed b-b line-lg pull-in"></div>
-                <div>
-                    <button class="btn m-b-xs btn-sm btn-primary btn-addon" ng-click="addQuestionItem()"><i class="fa fa-plus"></i><span translate="add"></span></button>
-                </div>
-                <div class="clearfix">
-                    <div class="col-md-12">
-                        <question-item-table data="selectedQuestionItems"></question-item-table>
-                    </div>
-                </div>
-                <footer class="panel-footer text-right bg-light lter">
-                    <button type="button" class="btn" ng-click="cancel()">返回</button>
-                    <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid" ng-click="submit()">提交</button>
-                </footer>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
