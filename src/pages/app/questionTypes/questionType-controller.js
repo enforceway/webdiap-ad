@@ -6,7 +6,7 @@ angular.module('app').controller('QuestionTypesController', ['$scope', '$G', '$d
         var $ns = $scope.$new();
         $ns.item = item;
         var $q = $diModal.open({
-            templateUrl: 'pages/app/questions/questions-add.html',
+            templateUrl: 'pages/app/questions/question-add.html',
             controller: 'addQuestionController',
             backdrop: true,
             // scope: $scope,
@@ -22,7 +22,7 @@ angular.module('app').controller('QuestionTypesController', ['$scope', '$G', '$d
     };
     $scope.add = function() {
         $diModal.open({
-            templateUrl: 'pages/app/questions/questions-add.html',
+            templateUrl: 'pages/app/questions/question-add.html',
             controller: 'addQuestionController',
             backdrop: true,
             // scope: $scope,

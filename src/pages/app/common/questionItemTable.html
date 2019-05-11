@@ -11,7 +11,7 @@
             width: auto;
         }
 
-.question-item-table .table > tbody > tr > td span.footable-toggle {
+.question-item-table span.footable-toggle {
   cursor: pointer;
   display: inline-block;
   font-family: 'footable';
@@ -24,6 +24,9 @@
   padding-right: 5px;
   font-size: 14px;
   color: #888888;
+}
+.question-item-table span.footable-toggle.toggle-disabled {
+  pointer-events: none;
 }
 
 .question-item-table .table > tbody > tr.question-item-answers-active > td span.footable-toggle:before {
@@ -128,16 +131,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-if="data.length == 0"><td colspan="4" style="text-align: center;">暂无任何题目添加</td></tr>
+                    <tr ng-if="data.length == 0" style="background-color: transparent;"><td style="background-color: transparent;" colspan="4" style="text-align: center;">暂无任何题目添加</td></tr>
 
                     <tr ng-repeat="item in data track by item.id" class="item-group" ng-class="{'question-item-answers-active': !!item.$$answersOnShow}">
                         <td>
                             <!-- 题目内容区域 -->
                             <div class="clearfix" >
                                 <div class="col-md-1 col-sm-1 col-lg-1">
-                                    <span class="footable-toggle" ng-click="toggleQuestionItemAnswers(item, $event)"></span><label ng-bind="($index + 1)"></label>
+                                    <span class="footable-toggle" ng-class="{'toggle-disabled': item.$$disabled}" ng-click="toggleQuestionItemAnswers(item, $event)"></span><label ng-bind="($index + 1)"></label>
                                 </div>
-                                <div class="col-md-3 col-sm-3 col-lg-3">
+                                <div class="col-md-2 col-sm-2 col-lg-2">
                                     <div class="clearfix">
                                         <div class="m-b-sm" style="float:left;">
                                             <div class="btn-group dropdown" dropdown>
@@ -145,42 +148,51 @@
                                                 <button class="btn btn-sm btn-success" style="margin-left: 0px;" dropdown-toggle><span class="caret"></span></button>
                                                 <ul class="dropdown-menu">
                                                     <li><a href="javascript:void(0)">移除该题目</a></li>
-                                                    <li><a href="javascript:void(0)">Another action</a></li>
+                                                    <li><a href="javascript:void(0)" ng-click="toggleDisableQuestionItem(item)" ng-bind="item.$$disabled?'启用该题目':'停用该题目'"></a></li>
                                                     <li><a href="javascript:void(0)">Something else here</a></li>
                                                     <li class="divider"></li>
                                                     <li><a href="javascript:void(0)">Separated link</a></li>
                                                 </ul>
                                             </div>
                                         </div>
-                                        <!-- <div style="float:left;">
-                                            <button title="移除" class="btn input-sm btn-info question-addon"><i class="fa fa-trash-o" style="margin-right: 0;"></i></button>
-                                        </div> -->
-                                        <!-- <button type="button" class="btn btn-xs">添加备选答案</button> -->
-                                        <!-- <button type="submit" class="btn btn-xs">移除该题目</button> -->
                                     </div>
                                 </div>
                                 <div class="col-md-7 col-sm-7 col-lg-7">
                                     <p><label ng-bind="item.questionContent"></label></p>
                                 </div>
                                 <div>
-                                    <span class="label bg-light" title="禁用" ng-if="item.disabled">Disabled</span>
-                                    <span class="label bg-success" title="可用" ng-if="!item.disabled">Active</span>
+                                    <span class="label bg-light" title="禁用" ng-if="item.$$disabled">Disabled</span>
+                                    <span class="label bg-success" title="可用" ng-if="!item.$$disabled">Active</span>
                                 </div>
                             </div>
 
                             <!-- 题目候选答案部分 -->
                             <div class="question-item-answers" ng-show="!!item.$$answersOnShow">
-                                <div class="col-md-1 col-sm-1 col-lg-1"></div>
-
-
-                                <div>
-                                    <select name="account" class="question-item-type input-sm">
+                                <div class="col-md-2 col-sm-2 col-lg-2" style="padding: 0;">
+                                    <select name="account" ng-model="item.$$itemInputType" class="question-item-type input-sm" style="padding: 5px 0px 5px 7px;">
                                         <option value="">请选择</option>
-                                        <option value="option 1">多选</option>
-                                        <option value="option 2">单选</option>
-                                        <option value="option 3">文本输入</option>
-                                        <option value="option 4">长文本输入</option>
+                                        <option value="multi" title="多选">多选</option>
+                                        <option value="mono" title="单选">单选</option>
+                                        <option value="input" title="文本输入">文本输入</option>
+                                        <option value="text" title="长文本输入">长文本输入</option>
                                     </select>    
+                                </div>
+
+                                <!-- 多选 -->
+                                <div class="col-md-10 col-sm-10 col-lg-10" ng-if="item.$$itemInputType == 'multi'">
+                                    多选
+                                </div>
+                                <!-- 单选 -->
+                                <div class="col-md-10 col-sm-10 col-lg-10" ng-if="item.$$itemInputType == 'mono'">
+                                    单选
+                                </div>
+                                <!-- 文本输入 -->
+                                <div class="col-md-10 col-sm-10 col-lg-10" ng-if="item.$$itemInputType == 'input'">
+                                    文本输入
+                                </div>
+                                <!-- 长文本输入 -->
+                                <div class="col-md-10 col-sm-10 col-lg-10" ng-if="item.$$itemInputType == 'text'">
+                                    长文本输入
                                 </div>
                             </div>
                         </td>

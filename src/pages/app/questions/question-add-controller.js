@@ -11,19 +11,20 @@ angular.module('app').controller('addQuestionController', [
             questionType: ''
         };
         if($scope.item) {
-            debugger
             $scope.typeForm.id = $scope.item.id;
-            $scope.typeForm.questionTypeId = $scope.item.questionTypeId + '';
+            $scope.typeForm.questionTypeId = $scope.item.questionTypeId;
             $scope.typeForm.questionType = $scope.item.questionType;
             $scope.typeForm.questionContent = $scope.item.questionContent;
         }
+        
         // 获取题目类型
         $scope.getQuestionTypes = function() {
             $diResource.get({
                 url: $G.listQuestionTypes,
             }).then(function(res) {
-                self.types = res;
-                // debugger;
+                $scope.$apply(function() {
+                    $scope.types = res;
+                })
             });
         };
         $scope.getQuestionTypes();
@@ -36,27 +37,26 @@ angular.module('app').controller('addQuestionController', [
             text: '添加成功'
         };
         $scope.submit = function() {
-            $scope.typeForm.questionType = $scope.types.find(function(item, index) {
+            let tmp = $scope.types.find(function(item, index) {
                 return item.id == $scope.typeForm.questionTypeId;
-            }).type;
-
+            });
+            $scope.typeForm.questionType = tmp.type;
+            $scope.typeForm.questionTypeId = +$scope.typeForm.questionTypeId;
             if($scope.item) {
+                // 更新操作
                 $diResource.post({
                     url: $G.updateQuestion,
                     data: self.typeForm
                 }).then(function(res) {
-                    debugger
                     toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);
-                    // debugger;
                 });
             } else {
+                // 新增操作
                 $diResource.post({
                     url: $G.addQuestion,
                     data: self.typeForm
                 }).then(function(res) {
-                    debugger
                     toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);
-                    // debugger;
                 });
             }
             $diModal.close();

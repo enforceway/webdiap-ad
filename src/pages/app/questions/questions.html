@@ -4,14 +4,14 @@
 			<div class="panel-heading" translate="aside.nav.QUESTIONS_MANAGE">题目管理</div>
 			<div class="row wrapper">
 				<div class="col-sm-5 m-b-xs">
-					<button class="btn m-b-xs btn-sm btn-primary btn-addon" ng-click="add()"><i class="fa fa-plus"></i><span translate="add"></span></button>
+					<button class="btn m-b-xs btn-sm btn-primary btn-addon" ng-click="goToAdd()"><i class="fa fa-plus"></i><span translate="add"></span></button>
 				</div>
 				<div class="col-sm-4"></div>
 				<div class="col-sm-3">
 					<div class="input-group">
-						<input type="text" class="input-sm form-control" placeholder="Search">
+						<input type="text" class="input-sm form-control" placeholder="Search" ng-model="searchForm.keyWord">
 						<span class="input-group-btn">
-							<button class="btn btn-sm btn-default" type="button">Go!</button>
+							<button class="btn btn-sm btn-default" type="button" ng-click="search">搜索</button>
 						</span>
 					</div>
 				</div>

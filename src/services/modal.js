@@ -1,5 +1,5 @@
 var modalInstance = $modal.open({
-    templateUrl: 'pages/app/questions/questions-add.html',
+    templateUrl: 'pages/app/questions/question-add.html',
     controller: 'addQuestionController',
     backdrop: true,
     scope: $scope,

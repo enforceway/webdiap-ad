@@ -22,6 +22,14 @@ angular.module('app').directive('questionItemTable', function() {
             data: '=?',
         },
         controller: ['$scope', function($scope) {
+            $scope.switchItemInputType = function(type, rowData) {
+                
+            };
+            $scope.toggleDisableQuestionItem = function(rowData) {
+                rowData.$$itemInputType = '';
+                rowData.$$answersOnShow = false;
+                rowData.$$disabled = !rowData.$$disabled;
+            };
             $scope.toggleQuestionItemAnswers = function(rowData, evt) {
                 rowData.$$answersOnShow = !rowData.$$answersOnShow
             };
