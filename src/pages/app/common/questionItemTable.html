@@ -11,6 +11,15 @@
             width: auto;
         }
 
+.question-item-table tags-input .host {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.question-item-table tags-input .tags {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 .question-item-table span.footable-toggle {
   cursor: pointer;
   display: inline-block;
@@ -131,12 +140,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-if="data.length == 0" style="background-color: transparent;"><td style="background-color: transparent;" colspan="4" style="text-align: center;">暂无任何题目添加</td></tr>
+                    <tr ng-if="data.length == 0" style="background-color: transparent;"><td style="background-color: transparent;text-align: center; " colspan="4" style="text-align: center;">暂无任何题目添加</td></tr>
 
                     <tr ng-repeat="item in data track by item.id" class="item-group" ng-class="{'question-item-answers-active': !!item.$$answersOnShow}">
                         <td>
                             <!-- 题目内容区域 -->
-                            <div class="clearfix" >
+                            <div class="clearfix">
                                 <div class="col-md-1 col-sm-1 col-lg-1">
                                     <span class="footable-toggle" ng-class="{'toggle-disabled': item.$$disabled}" ng-click="toggleQuestionItemAnswers(item, $event)"></span><label ng-bind="($index + 1)"></label>
                                 </div>
@@ -167,7 +176,7 @@
                             </div>
 
                             <!-- 题目候选答案部分 -->
-                            <div class="question-item-answers" ng-show="!!item.$$answersOnShow">
+                            <div class="question-item-answers clearfix" ng-show="!!item.$$answersOnShow">
                                 <div class="col-md-2 col-sm-2 col-lg-2" style="padding: 0;">
                                     <select name="account" ng-model="item.$$itemInputType" class="question-item-type input-sm" style="padding: 5px 0px 5px 7px;">
                                         <option value="">请选择</option>
@@ -177,22 +186,19 @@
                                         <option value="text" title="长文本输入">长文本输入</option>
                                     </select>    
                                 </div>
-
-                                <!-- 多选 -->
-                                <div class="col-md-10 col-sm-10 col-lg-10" ng-if="item.$$itemInputType == 'multi'">
-                                    多选
-                                </div>
-                                <!-- 单选 -->
-                                <div class="col-md-10 col-sm-10 col-lg-10" ng-if="item.$$itemInputType == 'mono'">
-                                    单选
+                                <!-- 多选 / 单选 -->
+                                <div class="col-md-10 col-sm-10 col-lg-10" ng-if="['multi','mono'].indexOf(item.$$itemInputType) >= 0">
+                                    <tags-input ng-model="item.$$tags">
+                                      <!-- <auto-complete source="loadTags($query)"></auto-complete> -->
+                                    </tags-input>
                                 </div>
                                 <!-- 文本输入 -->
                                 <div class="col-md-10 col-sm-10 col-lg-10" ng-if="item.$$itemInputType == 'input'">
-                                    文本输入
+                                  <input type="text" disabled />
                                 </div>
                                 <!-- 长文本输入 -->
                                 <div class="col-md-10 col-sm-10 col-lg-10" ng-if="item.$$itemInputType == 'text'">
-                                    长文本输入
+                                  <textarea cols="4" rows="3" disabled></textarea>
                                 </div>
                             </div>
                         </td>

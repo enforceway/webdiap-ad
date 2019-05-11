@@ -42,10 +42,12 @@ angular.module('app').controller('addQuestionaireController', [
             text: '添加成功'
         };
         $scope.submit = function() {
-            $scope.typeForm.questionType = $scope.statusArray.find(function(item, index) {
-                return item.id == $scope.typeForm.questionTypeId;
-            }).type;
-
+            debugger
+            // $scope.typeForm.questionType = $scope.statusArray.find(function(item, index) {
+            //     return item.id == $scope.typeForm.questionTypeId;
+            // }).type;
+            
+            return
             if($scope.item) {
                 $diResource.post({
                     url: $G.updateQuestion,
@@ -65,7 +67,7 @@ angular.module('app').controller('addQuestionaireController', [
                     // debugger;
                 });
             }
-            $diModal.close();
+            // $diModal.close();
         };
     }]
 );

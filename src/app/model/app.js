@@ -14,6 +14,7 @@ angular.module('app', [
     'pascalprecht.translate',
     'ngGrid',
     'toaster',
+    'ngTagsInput'
 ]).service('$diModal', ['$modal', function ($modal) {
     'use strict';
 

@@ -22,19 +22,28 @@ angular.module('app').directive('questionItemTable', function() {
             data: '=?',
         },
         controller: ['$scope', function($scope) {
+            $scope.tags = [
+                { text: 'just' },
+                { text: 'some' },
+                { text: 'cool' },
+                { text: 'tags' }
+            ];
             $scope.switchItemInputType = function(type, rowData) {
                 
             };
+            // 题目是否失效的显示和隐藏
             $scope.toggleDisableQuestionItem = function(rowData) {
                 rowData.$$itemInputType = '';
                 rowData.$$answersOnShow = false;
                 rowData.$$disabled = !rowData.$$disabled;
             };
+            // 题目回答区域的显示和隐藏
             $scope.toggleQuestionItemAnswers = function(rowData, evt) {
                 rowData.$$answersOnShow = !rowData.$$answersOnShow
             };
         }],
         link: function($scope, element, attrs, $controller) {
+
             // $scope.questionItemClick = function(rowData, evt) {
             //     debugger
             //     var rowDom = angular.element(evt.srcElement || evt.target);
