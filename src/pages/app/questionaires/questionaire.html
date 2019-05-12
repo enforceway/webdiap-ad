@@ -37,9 +37,11 @@
 						<tr ng-repeat="que in data4Questionaires">
 							<td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
 							<td>主题..</td>
-							<td ng-bind="que.status"></td>
+							<td ng-bind="que.statusId"></td>
 							<td ng-bind="que.workingField"></td>
-							<td ng-bind="que.activeDateStart + que.activeDateEnd"></td>
+							<td>
+								<span ng-bind="que.activeDateStart"></span>-<span ng-bind="que.activeDateEnd"></span>
+							</td>
 							<td ng-bind="que.creationTimestamp"></td>
 							<td>
 								<button class="btn m-b-xs btn-sm btn-default" ng-click="goToDelete(que)"><span>删除</span></button>
