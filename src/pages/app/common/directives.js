@@ -35,7 +35,7 @@ angular.module('app').directive('questionItemTable', function() {
             $scope.toggleDisableQuestionItem = function(rowData) {
                 rowData.$$itemInputType = '';
                 rowData.$$answersOnShow = false;
-                rowData.$$disabled = !rowData.$$disabled;
+                rowData.enabled = !rowData.enabled;
             };
             // 题目回答区域的显示和隐藏
             $scope.toggleQuestionItemAnswers = function(rowData, evt) {

@@ -7,7 +7,7 @@ angular.module('app').controller('questionPanelController', [
         $scope.data4Questions = [];
         $scope.data4SelectedQuestions = [];
         $scope.cancelSelectQuestions = function() {
-            $diModal.close();
+            $diModal.close(null);
         };
         $scope.confirmSelectQuestions = function() {
             $scope.$emit('evt4SelectQuestions', this.data4SelectedQuestions);

@@ -48,6 +48,10 @@ angular.module('app')
                 url: '/addQuestionaire',
                 templateUrl: 'pages/app/questionaires/questionaire-add.html'
               })
+              .state('app.updateQuestionaire', {
+                url: '/updateQuestionaire/:questionaireId',
+                templateUrl: 'pages/app/questionaires/questionaire-add.html'
+              })
               // table
               .state('app.table', {
                   url: '/table',
