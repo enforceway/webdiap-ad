@@ -37,6 +37,14 @@
 						<tr ng-repeat="que in data4Questionaires">
 							<td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
 							<td>主题..</td>
+							<!-- 1代表 -->
+							$scope.statusArray = [{
+								value: '1',
+								text: '草稿'
+							}, {
+								value: '2',
+								text: '已发布'
+							}];
 							<td ng-bind="que.statusId"></td>
 							<td ng-bind="que.workingField"></td>
 							<td>

@@ -138,7 +138,7 @@
                 <tbody>
                     <tr ng-if="data.length == 0" style="background-color: transparent;"><td style="background-color: transparent;text-align: center; " colspan="4" style="text-align: center;">暂无任何题目添加</td></tr>
 
-                    <tr ng-repeat="item in data track by item.id" class="item-group" ng-class="{'question-item-answers-active': !!item.$$answersOnShow}">
+                    <tr ng-repeat="item in data" class="item-group" ng-class="{'question-item-answers-active': !!item.$$answersOnShow}">
                         <td>
                             <!-- 题目内容区域 -->
                             <div class="clearfix">
@@ -176,24 +176,24 @@
                                 <div class="col-md-2 col-sm-2 col-lg-2" style="padding: 0;">
                                     <select name="account" ng-model="item.$$itemInputType" class="question-item-type input-sm" style="padding: 5px 0px 5px 7px;">
                                         <option value="">请选择</option>
-                                        <option value="multi" title="多选">多选</option>
-                                        <option value="mono" title="单选">单选</option>
-                                        <option value="input" title="文本输入">文本输入</option>
-                                        <option value="text" title="长文本输入">长文本输入</option>
+                                        <option value="2" title="多选">多选</option>
+                                        <option value="1" title="单选">单选</option>
+                                        <option value="3" title="文本输入">文本输入</option>
+                                        <option value="4" title="长文本输入">长文本输入</option>
                                     </select>    
                                 </div>
                                 <!-- 多选 / 单选 -->
-                                <div class="col-md-10 col-sm-10 col-lg-10" ng-if="['multi','mono'].indexOf(item.$$itemInputType) >= 0">
+                                <div class="col-md-10 col-sm-10 col-lg-10" ng-if="['2','1'].indexOf(item.$$itemInputType) >= 0">
                                     <tags-input ng-model="item.$$tags">
                                       <!-- <auto-complete source="loadTags($query)"></auto-complete> -->
                                     </tags-input>
                                 </div>
                                 <!-- 文本输入 -->
-                                <div class="col-md-10 col-sm-10 col-lg-10" ng-if="item.$$itemInputType == 'input'">
+                                <div class="col-md-10 col-sm-10 col-lg-10" ng-if="item.$$itemInputType == '3'">
                                   <input type="text" disabled />
                                 </div>
                                 <!-- 长文本输入 -->
-                                <div class="col-md-10 col-sm-10 col-lg-10" ng-if="item.$$itemInputType == 'text'">
+                                <div class="col-md-10 col-sm-10 col-lg-10" ng-if="item.$$itemInputType == '4'">
                                   <textarea cols="4" rows="3" disabled></textarea>
                                 </div>
                             </div>

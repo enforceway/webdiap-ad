@@ -30,11 +30,11 @@ angular.module('app').controller('addQuestionaireController', [
             data = data || [];
             data = data.map(function(item) {
                 return {
-                    id: item.id,
+                    // id: item.id,
                     questionContent: item.questionContent,
                     questionId: item.id,
-                    questionaireId: 2,
-                    questionType: 2,
+                    // questionaireId: 2,
+                    questionType: '',
                     enabled: true,
                     options: []
                 }
@@ -66,13 +66,29 @@ angular.module('app').controller('addQuestionaireController', [
             if($scope.ifUpdate) {
                 url = $G.updateQuestionaire;
             }
-            debugger
-            $scope.questionaireForm.questionsList.forEach(function(que) {
-                que.enabled = que.enabled?1:0;
+            var params = {
+                activeDateStart: $scope.questionaireForm.activeDateStart,
+                activeDateEnd: $scope.questionaireForm.activeDateEnd,
+                statusId: $scope.questionaireForm.statusId,
+                theme: $scope.questionaireForm.theme,
+            };
+            params.questionsList = $scope.questionaireForm.questionsList.map(function(que) {
+                return {
+                    enabled: que.enabled?1:0,
+                    questionType: que.$$itemInputType,
+                    questionId: que.questionId,
+                    questionContent: que.questionContent,
+                    options: que.$$tags.map(function(item) {
+                        return {
+                            optionContent: item.text
+                        }
+                    })
+                }
             });
+            debugger
             $diResource.post({
                 url: url,
-                data: $scope.questionaireForm,
+                data: params,
             }).then(function(res) {
                 debugger
                 // toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);
