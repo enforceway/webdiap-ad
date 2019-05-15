@@ -25,7 +25,24 @@ angular.module('app').controller('addQuestionaireController', [
         if($state.current.name == 'app.updateQuestionaire' && $stateParams.questionaireId) {
             // 更新问卷
             $scope.ifUpdate = true;
+            $diResource.get({
+                url: $G.listQuestionaires + '/' + $stateParams.questionaireId,
+            }).then(function(res) {
+                $scope.reform(res);
+            });
         }
+        $scope.reform = function(res) {
+            $scope.questionaireForm = res;
+            $scope.questionaireForm.statusId = res.statusId + '';
+            $scope.questionaireForm.questionsList.forEach(function(item) {
+                item.$$itemInputType = item.questionType + '';
+                item.$$tags = item.option.map(function(itm) {
+                    return {
+                        text: itm.optionContent,
+                    }
+                });
+            });
+        };
         $scope.confirmSelected = function(data) {
             data = data || [];
             data = data.map(function(item) {

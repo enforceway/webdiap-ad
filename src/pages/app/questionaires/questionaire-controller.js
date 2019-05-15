@@ -3,18 +3,8 @@
 angular.module('app').controller('QuestionaireController', ['$state', '$scope', '$G', '$diModal', '$diResource', '$http', 'toaster', function($state, $scope, $G, $diModal, $diResource, $http, toaster) {
     $scope.data4Questionaires = [];
     $scope.goToUpdate = function(item) {
-        var $ns = $scope.$new();
-        $ns.item = item;
-        var $q = $diModal.open({
-            templateUrl: 'pages/app/questionaires/questionaire-add.html',
-            controller: 'addQuestionaireController',
-            backdrop: true,
-            // scope: $scope,
-            size: 'md',
-            scope: $ns,
-        });
-        $q.result.then(function() {
-            $scope.search();
+        $state.go('app.updateQuestionaire', {
+            questionaireId: item.id,
         });
     };
     $scope.$on('evt4SelectQuestions', function(args) {
