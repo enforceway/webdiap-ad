@@ -36,7 +36,7 @@ angular.module('app').controller('addQuestionaireController', [
             $scope.questionaireForm.statusId = res.statusId + '';
             $scope.questionaireForm.questionsList.forEach(function(item) {
                 item.$$itemInputType = item.questionType + '';
-                item.$$tags = item.option.map(function(itm) {
+                item.$$tags = item.options.map(function(itm) {
                     return {
                         text: itm.optionContent,
                     }
