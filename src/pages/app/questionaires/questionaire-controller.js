@@ -1,6 +1,8 @@
 'use strict';
 
-angular.module('app').controller('QuestionaireController', ['$state', '$scope', '$G', '$diModal', '$diResource', '$http', 'toaster', function($state, $scope, $G, $diModal, $diResource, $http, toaster) {
+angular.module('app').controller('QuestionaireController', [
+    'svcConfirm', '$state', '$scope', '$G', '$diModal', '$diResource', '$http', 'toaster',
+    function(svcConfirm, $state, $scope, $G, $diModal, $diResource, $http, toaster) {
     $scope.data4Questionaires = [];
     $scope.goToUpdate = function(item) {
         $state.go('app.updateQuestionaire', {
@@ -11,7 +13,13 @@ angular.module('app').controller('QuestionaireController', ['$state', '$scope', 
         debugger
     })
     $scope.goToDelete = function(item) {
-        
+        var $q = svcConfirm.confirm();
+        debugger
+        $q.then(function(){
+            debugger
+        }).catch(function() {
+            debugger
+        });
     };
     $scope.add = function() {
         $state.go('app.addQuestionaire');
