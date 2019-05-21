@@ -14,9 +14,9 @@ angular.module('app').controller('QuestionaireController', [
     })
     $scope.goToDelete = function(item) {
         var $q = svcConfirm.confirm();
-        debugger
         $q.then(function(){
-            debugger
+            $scope.removeQuestionaire(item.id);
+            // debugger
         }).catch(function() {
             debugger
         });
@@ -31,7 +31,18 @@ angular.module('app').controller('QuestionaireController', [
         //     size: 'lg'
         // });
     };
-    
+    $scope.removeQuestionaire = function(id) {
+        $diResource.put({
+            url: $G.removeQuestionaire,
+            data: {
+                id: id
+            }
+        }).then(function(res) {
+            $scope.$apply(function () {
+                $scope.data4Questionaires = res;
+            });
+        });
+    };
     $scope.getQuestionaires = function(params) {
         params = params || {};
         $diResource.get({

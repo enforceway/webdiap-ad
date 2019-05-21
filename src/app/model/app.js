@@ -118,6 +118,7 @@ angular.module('app', [
     'listQuestionaires': '/webdiapp/questionaire/list',
     'addQuestionaire': '/webdiapp/questionaire/add',
     'updateQuestionaire': '/webdiapp/questionaire/update',
+    'removeQuestionaire': '/webdiapp/questionaire/delete',
 })
 /**
  * jQuery plugin config use ui-jq directive , config the js and css files that required
