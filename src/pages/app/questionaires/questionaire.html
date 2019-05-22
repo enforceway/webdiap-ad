@@ -40,7 +40,7 @@
 							<td ng-bind="que.title"></td>
 							<!-- 1代表草稿状态 -->
 							<!-- 2代表已发布状态 -->
-							<td ng-bind="que.statusId"></td>
+							<td ng-bind="que.statusId | statusFiler"></td>
 							<!-- <td ng-bind="que.workingField"></td> -->
 							<td>
 								<span ng-bind="que.activeDateStart"></span>-<span ng-bind="que.activeDateEnd"></span>

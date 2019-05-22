@@ -67,7 +67,18 @@ angular.module('app').service('svcConfirm', [
         };
     }]
 );
-
+angular.module('app').filter('statusFiler', function() {
+    var statusMap = {
+        '1': '草稿',
+        '2': '发布'
+    };
+    return function(statusId) {
+        if(statusMap[statusId]) {
+            return statusMap[statusId];
+        }
+        return statusId
+    };
+});
 angular.module('app').controller('questionPanelController', [
     '$scope', '$diModal', '$diResource', '$G', 'toaster',
     function($scope, $diModal, $diResource, $G, toaster) {

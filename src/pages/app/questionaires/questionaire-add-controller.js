@@ -4,6 +4,31 @@ angular.module('app').controller('addQuestionaireController', [
     '$state', '$scope', '$stateParams', '$diModal', '$diResource', '$G', 'toaster',
     function($state, $scope, $stateParams, $diModal, $diResource, $G, toaster) {
         // var self = $scope;
+        $scope.open = function(dateType, $event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            var closeType = {
+                'Start': 'End',
+                'End': 'Start',
+            };
+
+            $scope['opened' + dateType] = true;
+            $scope['opened' + closeType[dateType]] = false;
+        };
+
+        $scope.dateOptions = {
+            formatYear: 'yy',
+            startingDay: 1,
+            class: 'datepicker'
+        };
+
+        $scope.initDate = new Date('2016-15-20');
+        $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+        $scope.format = $scope.formats[0];
+
+
+
         $scope.questionaireForm = {
             statusId: '',
             activeDateStart: '',
