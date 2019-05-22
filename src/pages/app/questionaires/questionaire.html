@@ -27,7 +27,7 @@
 							</th>
 							<th>问卷主题</th>
 							<th>问卷状态</th>
-							<th>所属领域</th>
+							<!-- <th>所属领域</th> -->
 							<th>有效期</th>
 							<th>创建日期</th>
 							<th>操作</th>
@@ -37,11 +37,11 @@
 						<tr ng-if="data4Questionaires.length == 0" style="background-color: transparent;"><td style="background-color: transparent;text-align: center; " colspan="7" style="text-align: center;">暂无任何题目添加</td></tr>
 						<tr ng-repeat="que in data4Questionaires">
 							<td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-							<td>主题..</td>
+							<td ng-bind="que.title"></td>
 							<!-- 1代表草稿状态 -->
 							<!-- 2代表已发布状态 -->
 							<td ng-bind="que.statusId"></td>
-							<td ng-bind="que.workingField"></td>
+							<!-- <td ng-bind="que.workingField"></td> -->
 							<td>
 								<span ng-bind="que.activeDateStart"></span>-<span ng-bind="que.activeDateEnd"></span>
 							</td>

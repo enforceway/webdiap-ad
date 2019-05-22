@@ -60,7 +60,7 @@ angular.module('app').controller('addQuestionaireController', [
         };
         $scope.addQuestionItem = function() {
             var tmp = $diModal.open({
-                templateUrl: 'pages/app/common/questions-panel.html',
+                templateUrl: 'pages/app/common/question-panel/questions-panel.html',
                 controller: 'questionPanelController',
                 backdrop: true,
                 // scope: $scope,
@@ -102,7 +102,6 @@ angular.module('app').controller('addQuestionaireController', [
                     })
                 }
             });
-            debugger
             $diResource.post({
                 url: url,
                 data: params,
