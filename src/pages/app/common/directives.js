@@ -67,6 +67,14 @@ angular.module('app').service('svcConfirm', [
         };
     }]
 );
+angular.module('app').service('svcPrompt', [
+    '$rootScope', 'toaster',
+    function($rootScope, toaster) {
+        this.success = function(cfg) {
+            
+        };
+    }]
+);
 angular.module('app').filter('statusFiler', function() {
     var statusMap = {
         '1': '草稿',

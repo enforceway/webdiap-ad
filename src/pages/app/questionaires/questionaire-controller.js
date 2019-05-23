@@ -30,6 +30,8 @@ angular.module('app').controller('QuestionaireController', [
         });
     };
     $scope.add = function() {
+        toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);
+        return;
         $state.go('app.addQuestionaire');
         // $diModal.open({
         //     templateUrl: 'pages/app/questionaires/questionaire-add.html',
