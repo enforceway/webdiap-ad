@@ -70,8 +70,16 @@ angular.module('app').service('svcConfirm', [
 angular.module('app').service('svcPrompt', [
     '$rootScope', 'toaster',
     function($rootScope, toaster) {
+        var successOp = {
+            type: 'success',
+            title: 'Title',
+            text: 'Message'
+        };
         this.success = function(cfg) {
-            
+            toaster.pop('success', cfg.title || successOp.title, cfg.text || successOp.text);
+        };
+        this.error = function(cfg) {
+            toaster.pop('error', cfg.title || successOp.title, cfg.text || successOp.text);
         };
     }]
 );
