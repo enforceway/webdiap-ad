@@ -32,7 +32,7 @@
                             <div class="col-md-10">
                                 <div style="float: left;">
                                     <div class="input-group w-md">
-                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="questionaireForm.activeStartDate" is-open="openedStart" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="questionaireForm.activeDateStart" is-open="openedStart" datepicker-options="dateOptions" close-text="Close" />
                                         <span class="input-group-btn">
                                             <button type="button" class="btn btn-default" ng-click="open('Start', $event)"><i class="glyphicon glyphicon-calendar"></i></button>
                                         </span>
@@ -41,7 +41,7 @@
                                 <div style="float: left; padding: 6px 10px; "> -- </div>
                                 <div style="float: left;">
                                     <div class="input-group w-md">
-                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="questionaireForm.activeEndDate" is-open="openedEnd" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="questionaireForm.activeDateEnd" is-open="openedEnd" datepicker-options="dateOptions" close-text="Close" />
                                         <span class="input-group-btn">
                                             <button type="button" class="btn btn-default" ng-click="open('End', $event)"><i class="glyphicon glyphicon-calendar"></i></button>
                                         </span>

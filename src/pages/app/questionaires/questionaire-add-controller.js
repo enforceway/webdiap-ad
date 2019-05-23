@@ -113,6 +113,7 @@ angular.module('app').controller('addQuestionaireController', [
                 activeDateEnd: $scope.questionaireForm.activeDateEnd,
                 statusId: $scope.questionaireForm.statusId,
                 theme: $scope.questionaireForm.theme,
+                title: $scope.questionaireForm.title,
             };
             params.questionsList = $scope.questionaireForm.questionsList.map(function(que) {
                 return {
@@ -131,7 +132,7 @@ angular.module('app').controller('addQuestionaireController', [
                 url: url,
                 data: params,
             }).then(function(res) {
-                debugger
+                $state.go('app.questionaires');
                 // toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);
             });
         };

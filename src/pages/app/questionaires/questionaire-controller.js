@@ -17,6 +17,14 @@ angular.module('app').controller('QuestionaireController', [
         debugger
         $q.then(function(){
             debugger
+            $diResource.post({
+                url: $G.removeQuestionaire,
+                data: {
+                    id: item.id,
+                }
+            }).then(function() {
+                $scope.search();
+            });
         }).catch(function() {
             debugger
         });
