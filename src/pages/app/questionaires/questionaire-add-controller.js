@@ -1,9 +1,49 @@
 'use strict';
 
 angular.module('app').controller('addQuestionaireController', [
-    '$state', '$scope', '$stateParams', '$diModal', '$diResource', '$G', 'toaster',
-    function($state, $scope, $stateParams, $diModal, $diResource, $G, toaster) {
+    'svcConfirm', '$state', '$scope', '$stateParams', '$diModal', '$diResource', '$G', 'toaster',
+    function(svcConfirm, $state, $scope, $stateParams, $diModal, $diResource, $G, toaster) {
         // var self = $scope;
+        $scope.queRemoveCallback = function(item, index, config) {
+            var $q = svcConfirm.confirm();
+            $q.then(function() {
+                debugger
+                var targetIndex = null;
+                if($scope.ifUpdate == true) {
+                    var res = $scope.newAdded.find(function($item) {
+                        return $item === item;
+                    });
+                    if(res) {
+                        debugger
+                        // 本地删除
+                        $scope.questionaireForm.questionsList.forEach(function($item, index) {
+                            if(item === $item) {
+                                targetIndex = index;
+                                return false;
+                            }
+                        });
+                    } else {
+                        debugger
+                        // 调用api进行删除
+                    }
+                } else {
+                    // 本地删除
+                    $scope.questionaireForm.questionsList.forEach(function($item, index) {
+                        if(item === $item) {
+                            targetIndex = index;
+                            return false;
+                        }
+                    });
+                }
+                if(targetIndex != null) {
+                    debugger
+                    $scope.questionaireForm.questionsList = 
+                    $scope.questionaireForm.questionsList.slice(0, targetIndex).concat(
+                        $scope.questionaireForm.questionsList.slice(targetIndex + 1)
+                    );
+                }
+            });
+        };
         $scope.open = function(dateType, $event) {
             $event.preventDefault();
             $event.stopPropagation();
@@ -49,6 +89,7 @@ angular.module('app').controller('addQuestionaireController', [
         };
         if($state.current.name == 'app.updateQuestionaire' && $stateParams.questionaireId) {
             // 更新问卷
+            $scope.newAdded = [];
             $scope.ifUpdate = true;
             $diResource.get({
                 url: $G.listQuestionaires + '/' + $stateParams.questionaireId,
@@ -80,7 +121,13 @@ angular.module('app').controller('addQuestionaireController', [
                     enabled: true,
                     options: []
                 }
-            })
+            });
+            
+            if($scope.ifUpdate == true) {
+                data.forEach(function(item) {
+                    $scope.newAdded.push(item);
+                });
+            }
             $scope.questionaireForm.questionsList = $scope.questionaireForm.questionsList.concat(data);
         };
         $scope.addQuestionItem = function() {

@@ -6,9 +6,14 @@ angular.module('app').directive('questionItemTable', function() {
         // template: '<div>length of data is: <p ng-bind="data.length"></p></div>',
         templateUrl: 'pages/app/common/questionItemTable.html',
         scope: {
+            itemRemove: '=?',
             data: '=?',
         },
         controller: ['$scope', function($scope) {
+            $scope.removeItemFn = function(arg1, arg2, arg3) {
+                // 是否是一个新加的问题，而不是已添加了的问题
+                $scope.itemRemove(arg1, arg2, arg3);
+            };
             $scope.tags = [
                 { text: 'just' },
                 { text: 'some' },
@@ -30,6 +35,9 @@ angular.module('app').directive('questionItemTable', function() {
             };
         }],
         link: function($scope, element, attrs, $controller) {
+            $scope.itemRemove = $scope.itemRemove || function() {};
+            // $scope.itemRemoveCallback = $scope.itemRemoveCallback || function() {};
+
 
             // $scope.questionItemClick = function(rowData, evt) {
             //     debugger

@@ -138,7 +138,7 @@
                 <tbody>
                     <tr ng-if="data.length == 0" style="background-color: transparent;"><td style="background-color: transparent;text-align: center; " colspan="4" style="text-align: center;">暂无任何题目添加</td></tr>
 
-                    <tr ng-repeat="item in data" class="item-group" ng-class="{'question-item-answers-active': !!item.$$answersOnShow}">
+                    <tr ng-repeat="(index, item) in data" class="item-group" ng-class="{'question-item-answers-active': !!item.$$answersOnShow}">
                         <td>
                             <!-- 题目内容区域 -->
                             <div class="clearfix">
@@ -152,7 +152,7 @@
                                                 <label class="btn btn-sm btn-success">操作</label>
                                                 <button class="btn btn-sm btn-success" style="margin-left: 0px;" dropdown-toggle><span class="caret"></span></button>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="javascript:void(0)">移除该题目</a></li>
+                                                    <li><a href="javascript:void(0)" ng-click="removeItemFn(item, index)">移除该题目</a></li>
                                                     <li><a href="javascript:void(0)" ng-click="toggleDisableQuestionItem(item)" ng-bind="item.enabled?'停用该题目':'启用该题目'"></a></li>
                                                     <li><a href="javascript:void(0)">Something else here</a></li>
                                                     <li class="divider"></li>
