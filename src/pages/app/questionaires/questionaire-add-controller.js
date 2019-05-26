@@ -19,7 +19,6 @@ angular.module('app').controller('addQuestionaireController', [
         $scope.queRemoveCallback = function(item, idex, config) {
             var $q = svcConfirm.confirm();
             $q.then(function() {
-                debugger
                 var targetIndex = null;
                 if($scope.ifUpdate == true) {
                     var res = $scope.newAdded.find(function($item) {
@@ -113,6 +112,7 @@ angular.module('app').controller('addQuestionaireController', [
             });
         }
         $scope.reform = function(dist, source) {
+            debugger
             var attrs = ['id', 'title', 'statusId', 'activeDateStart', 'activeDateEnd', 'questionsList'];
             angular.forEach(source, function(index, attr) {
                 if(attrs.indexOf(attr) != - 1) {
@@ -178,6 +178,7 @@ angular.module('app').controller('addQuestionaireController', [
                 statusId: $scope.questionaireForm.statusId,
                 title: $scope.questionaireForm.title,
             };
+            ($scope.ifUpdate == true)?(params.id = $scope.questionaireForm.id):('');
             // $scope. 
             params.questionsList = $scope.questionaireForm.questionsList.map(function(que) {
                 var nq = {
@@ -200,12 +201,18 @@ angular.module('app').controller('addQuestionaireController', [
                     $scope.originQuestionList.filter(function(queItem) {
                         return queItem.id == que.id
                     }).forEach(function(eachQue, index) {
-                        debugger
                         var tmp = eachQue.options.filter(function(opt) {
                             return opt.ifRemoved == true && que.$$tags.filter(function(option) {
                                 return option.id != opt.id;
                             })
-                        })
+                        });
+                        tmp = tmp.map(function(itmm) {
+                            return {
+                                id: itmm.id,
+                                ifRemoved: itmm.ifRemoved,
+                                optionContent: itmm.optionContent,
+                            };
+                        });
                         nq.options = optTags.concat(tmp);
                     });
                     nq.id = que.id
@@ -213,14 +220,13 @@ angular.module('app').controller('addQuestionaireController', [
                 return nq;
             });
             debugger
-            return;
             $diResource.post({
                 url: url,
                 data: params,
             }).then(function(res) {
-                toaster.pop('success', "提示", "创建成功");
                 $state.go('app.questionaires');
             });
+            toaster.pop('success', "提示", "创建成功");
         };
     }]
 );
