@@ -25,7 +25,7 @@ angular.module('app').directive('questionItemTable', function() {
             };
             // 题目是否失效的显示和隐藏
             $scope.toggleDisableQuestionItem = function(rowData) {
-                rowData.$$itemInputType = '';
+                // rowData.$$itemInputType = '';
                 rowData.$$answersOnShow = false;
                 rowData.enabled = !rowData.enabled;
             };

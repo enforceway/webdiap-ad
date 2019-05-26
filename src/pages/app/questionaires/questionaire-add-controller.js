@@ -4,7 +4,7 @@ angular.module('app').controller('addQuestionaireController', [
     'svcConfirm', '$state', '$scope', '$stateParams', '$diModal', '$diResource', '$G', 'toaster',
     function(svcConfirm, $state, $scope, $stateParams, $diModal, $diResource, $G, toaster) {
         // var self = $scope;
-        $scope.queRemoveCallback = function(item, index, config) {
+        $scope.queRemoveCallback = function(item, idex, config) {
             var $q = svcConfirm.confirm();
             $q.then(function() {
                 debugger
@@ -24,7 +24,14 @@ angular.module('app').controller('addQuestionaireController', [
                         });
                     } else {
                         debugger
+                        targetIndex = idex
                         // 调用api进行删除
+                        $diResource.put({
+                            url: $G.removeQuestionItem,
+                            data: {
+                                id: item.id
+                            },
+                        });
                     }
                 } else {
                     // 本地删除
@@ -94,7 +101,9 @@ angular.module('app').controller('addQuestionaireController', [
             $diResource.get({
                 url: $G.listQuestionaires + '/' + $stateParams.questionaireId,
             }).then(function(res) {
-                $scope.reform(res);
+                $scope.$apply(function() {
+                    $scope.reform(res);
+                })
             });
         }
         $scope.reform = function(res) {
