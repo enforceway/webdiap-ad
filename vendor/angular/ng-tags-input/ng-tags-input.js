@@ -205,7 +205,7 @@ tagsInput.directive('tagsInput', ["$timeout", "$document", "$window", "$q", "tag
             onTagAdded: '&',
             onInvalidTag: '&',
             onTagRemoving: '&',
-            onTagRemoved: '&',
+            onTagRemoved: '=',
             onTagClicked: '&',
         },
         replace: false,
@@ -1182,7 +1182,8 @@ tagsInput.factory('tiUtil', ["$timeout", "$q", function($timeout, $q) {
             trigger: function(name, args) {
                 var handlers = events[name] || [];
                 handlers.every(function(handler) {
-                    return self.handleUndefinedResult(handler, true)(args);
+                    var tmp = self.handleUndefinedResult(handler, true);
+                    return tmp(args);
                 });
                 return this;
             }

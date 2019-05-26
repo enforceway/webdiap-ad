@@ -3,7 +3,19 @@
 angular.module('app').controller('addQuestionaireController', [
     'svcConfirm', '$state', '$scope', '$stateParams', '$diModal', '$diResource', '$G', 'toaster',
     function(svcConfirm, $state, $scope, $stateParams, $diModal, $diResource, $G, toaster) {
-        // var self = $scope;
+        // var self = $scope;.
+        $scope.itemOptionRemoveCallback = function(tag) {
+            if(tag.id) {
+                $scope.originQuestionList.forEach(function(item, index) {
+                    var option = item.options.find(function(itm, idx) {
+                        return itm.id === tag.id
+                    });
+                    if(option) {
+                        option.ifRemoved = true;
+                    }
+                });
+            }
+        };
         $scope.queRemoveCallback = function(item, idex, config) {
             var $q = svcConfirm.confirm();
             $q.then(function() {
@@ -73,20 +85,12 @@ angular.module('app').controller('addQuestionaireController', [
         $scope.initDate = new Date('2016-15-20');
         $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
         $scope.format = $scope.formats[0];
-
-
-
-        $scope.questionaireForm = {
-            statusId: '',
-            activeDateStart: '',
-            activeDateEnd: '',
-            questionsList: [],
-        };
+        $scope.questionaireForm = {};
         $scope.statusArray = [{
-            value: '1',
+            value: 1,
             text: '草稿'
         }, {
-            value: '2',
+            value: 2,
             text: '已发布'
         }];
         $scope.toaster = {
@@ -101,18 +105,25 @@ angular.module('app').controller('addQuestionaireController', [
             $diResource.get({
                 url: $G.listQuestionaires + '/' + $stateParams.questionaireId,
             }).then(function(res) {
+                $scope.originQuestionList = [];
+                $.extend(true, $scope.originQuestionList, res.questionsList);
                 $scope.$apply(function() {
-                    $scope.reform(res);
+                    $scope.reform($scope.questionaireForm, res);
                 })
             });
         }
-        $scope.reform = function(res) {
-            $scope.questionaireForm = res;
-            $scope.questionaireForm.statusId = res.statusId + '';
-            $scope.questionaireForm.questionsList.forEach(function(item) {
-                item.$$itemInputType = item.questionType + '';
+        $scope.reform = function(dist, source) {
+            var attrs = ['id', 'title', 'statusId', 'activeDateStart', 'activeDateEnd', 'questionsList'];
+            angular.forEach(source, function(index, attr) {
+                if(attrs.indexOf(attr) != - 1) {
+                    dist[attr] = source[attr];
+                }
+            });
+            dist.questionsList.forEach(function(item) {
+                item.$$itemInputType = item.questionType;
                 item.$$tags = item.options.map(function(itm) {
                     return {
+                        id: itm.id,
                         text: itm.optionContent,
                     }
                 });
@@ -160,36 +171,55 @@ angular.module('app').controller('addQuestionaireController', [
             $state.go('app.questionaires');
         };
         $scope.submit = function() {
-            var url = $G.addQuestionaire;
-            if($scope.ifUpdate) {
-                url = $G.updateQuestionaire;
-            }
+            var url = ($scope.ifUpdate == true)? $G.updateQuestionaire : $G.addQuestionaire;
             var params = {
                 activeDateStart: $scope.questionaireForm.activeDateStart,
                 activeDateEnd: $scope.questionaireForm.activeDateEnd,
                 statusId: $scope.questionaireForm.statusId,
-                theme: $scope.questionaireForm.theme,
                 title: $scope.questionaireForm.title,
             };
+            // $scope. 
             params.questionsList = $scope.questionaireForm.questionsList.map(function(que) {
-                return {
+                var nq = {
                     enabled: que.enabled?1:0,
                     questionType: que.$$itemInputType,
                     questionId: que.questionId,
                     questionContent: que.questionContent,
-                    options: que.$$tags.map(function(item) {
-                        return {
-                            optionContent: item.text
-                        }
-                    })
+                    options: [],
+                };
+                var optTags = que.$$tags.map(function(item) {
+                    var ntag = {
+                        optionContent: item.text
+                    };
+                    if(item.id) {
+                        ntag.id = item.id;
+                    }
+                    return ntag;
+                });
+                if($scope.ifUpdate == true) {
+                    $scope.originQuestionList.filter(function(queItem) {
+                        return queItem.id == que.id
+                    }).forEach(function(eachQue, index) {
+                        debugger
+                        var tmp = eachQue.options.filter(function(opt) {
+                            return opt.ifRemoved == true && que.$$tags.filter(function(option) {
+                                return option.id != opt.id;
+                            })
+                        })
+                        nq.options = optTags.concat(tmp);
+                    });
+                    nq.id = que.id
                 }
+                return nq;
             });
+            debugger
+            return;
             $diResource.post({
                 url: url,
                 data: params,
             }).then(function(res) {
+                toaster.pop('success', "提示", "创建成功");
                 $state.go('app.questionaires');
-                // toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);
             });
         };
     }]

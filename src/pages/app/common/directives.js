@@ -8,20 +8,31 @@ angular.module('app').directive('questionItemTable', function() {
         scope: {
             itemRemove: '=?',
             data: '=?',
+            onItemOptionRemoved: '=?',
         },
         controller: ['$scope', function($scope) {
+            $scope.inputTypes = [{
+                value: 2,
+                text: '多选',
+            }, {
+                value: 1,
+                text: '单选'
+            }, {
+                value: 3,
+                text: '文本输入'
+            }, {
+                value: 4,
+                text: '长文本输入',
+            }];
             $scope.removeItemFn = function(arg1, arg2, arg3) {
                 // 是否是一个新加的问题，而不是已添加了的问题
                 $scope.itemRemove(arg1, arg2, arg3);
             };
-            $scope.tags = [
-                { text: 'just' },
-                { text: 'some' },
-                { text: 'cool' },
-                { text: 'tags' }
-            ];
-            $scope.switchItemInputType = function(type, rowData) {
-                
+            $scope.removeTagCallback = function(removedTag, $event) {
+                if(removedTag.$tag) {
+                    var tag = removedTag.$tag;
+                    $scope.onItemOptionRemoved(tag);
+                }
             };
             // 题目是否失效的显示和隐藏
             $scope.toggleDisableQuestionItem = function(rowData) {
@@ -36,6 +47,7 @@ angular.module('app').directive('questionItemTable', function() {
         }],
         link: function($scope, element, attrs, $controller) {
             $scope.itemRemove = $scope.itemRemove || function() {};
+            $scope.onItemOptionRemoved = $scope.onItemOptionRemoved || function(){};
             // $scope.itemRemoveCallback = $scope.itemRemoveCallback || function() {};
 
 
