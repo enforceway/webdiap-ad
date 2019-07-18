@@ -6,21 +6,37 @@ angular.module('app').directive('questionItemTable', function() {
         // template: '<div>length of data is: <p ng-bind="data.length"></p></div>',
         templateUrl: 'pages/app/common/questionItemTable.html',
         scope: {
+            itemRemove: '=?',
             data: '=?',
+            onItemOptionRemoved: '=?',
         },
         controller: ['$scope', function($scope) {
-            $scope.tags = [
-                { text: 'just' },
-                { text: 'some' },
-                { text: 'cool' },
-                { text: 'tags' }
-            ];
-            $scope.switchItemInputType = function(type, rowData) {
-                
+            $scope.inputTypes = [{
+                value: 2,
+                text: '多选',
+            }, {
+                value: 1,
+                text: '单选'
+            }, {
+                value: 3,
+                text: '文本输入'
+            }, {
+                value: 4,
+                text: '长文本输入',
+            }];
+            $scope.removeItemFn = function(arg1, arg2, arg3) {
+                // 是否是一个新加的问题，而不是已添加了的问题
+                $scope.itemRemove(arg1, arg2, arg3);
+            };
+            $scope.removeTagCallback = function(removedTag, $event) {
+                if(removedTag.$tag) {
+                    var tag = removedTag.$tag;
+                    $scope.onItemOptionRemoved(tag);
+                }
             };
             // 题目是否失效的显示和隐藏
             $scope.toggleDisableQuestionItem = function(rowData) {
-                rowData.$$itemInputType = '';
+                // rowData.$$itemInputType = '';
                 rowData.$$answersOnShow = false;
                 rowData.enabled = !rowData.enabled;
             };
@@ -30,6 +46,10 @@ angular.module('app').directive('questionItemTable', function() {
             };
         }],
         link: function($scope, element, attrs, $controller) {
+            $scope.itemRemove = $scope.itemRemove || function() {};
+            $scope.onItemOptionRemoved = $scope.onItemOptionRemoved || function(){};
+            // $scope.itemRemoveCallback = $scope.itemRemoveCallback || function() {};
+
 
             // $scope.questionItemClick = function(rowData, evt) {
             //     debugger
@@ -64,6 +84,22 @@ angular.module('app').service('svcConfirm', [
                 size: 'sm',
             });
             return $q.result;
+        };
+    }]
+);
+angular.module('app').service('svcPrompt', [
+    '$rootScope', 'toaster',
+    function($rootScope, toaster) {
+        var successOp = {
+            type: 'success',
+            title: 'Title',
+            text: 'Message'
+        };
+        this.success = function(cfg) {
+            toaster.pop('success', cfg.title || successOp.title, cfg.text || successOp.text);
+        };
+        this.error = function(cfg) {
+            toaster.pop('error', cfg.title || successOp.title, cfg.text || successOp.text);
         };
     }]
 );

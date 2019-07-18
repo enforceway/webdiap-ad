@@ -88,29 +88,43 @@ angular.module('app', [
         }
         return response;
     }, function (error) {
+
         return Promise.reject(error);
     });
-}]).factory('$diResource', function() {
+}]).factory('$diResource', ['toaster', function(toaster) {
+    function error(cfg) {
+        var message = cfg.response && cfg.response.data;
+        var title = '应用异常';
+        toaster.pop('error', title, message || 'message');
+    };
     var m = {
         get: function(opts) {
             opts.data = opts.data || {};
-            return axios.get(opts.url, opts.data);
+            return axios.get(opts.url, opts.data).catch(function(err) {
+                error(err);
+            });
         },
         post: function(opts) {
             opts.data = opts.data || {};
-            return axios.post(opts.url, opts.data);
+            return axios.post(opts.url, opts.data).catch(function(err) {
+                error(err);
+            });
         },
         put: function(opts) {
             opts.data = opts.data || {};
-            return axios.put(opts.url, opts.data);
+            return axios.put(opts.url, opts.data).catch(function(err) {
+                error(err);
+            });
         },
         delete: function(opts) {
             opts.data = opts.data || {};
-            return axios.delete(opts.url, opts.data);
+            return axios.delete(opts.url, opts.data).catch(function(err) {
+                error(err);
+            });
         }
     };
     return m;
-}).constant('$G', {
+}]).constant('$G', {
     'addQuestion': '/webdiapp/question/add',
     'updateQuestion': '/webdiapp/question/update',
     'listQuestions': '/webdiapp/question/list',
@@ -119,6 +133,7 @@ angular.module('app', [
     'addQuestionaire': '/webdiapp/questionaire/add',
     'updateQuestionaire': '/webdiapp/questionaire/update',
     'removeQuestionaire': '/webdiapp/questionaire/delete',
+    'removeQuestionItem': '/webdiapp/questionaire/deleteItem',
 })
 /**
  * jQuery plugin config use ui-jq directive , config the js and css files that required

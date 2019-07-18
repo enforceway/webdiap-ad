@@ -14,9 +14,7 @@ angular.module('app').controller('QuestionaireController', [
     })
     $scope.goToDelete = function(item) {
         var $q = svcConfirm.confirm();
-        debugger
         $q.then(function(){
-            debugger
             $diResource.post({
                 url: $G.removeQuestionaire,
                 data: {
