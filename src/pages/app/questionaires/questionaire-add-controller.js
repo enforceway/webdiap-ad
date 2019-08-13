@@ -84,7 +84,9 @@ angular.module('app').controller('addQuestionaireController', [
         $scope.initDate = new Date('2016-15-20');
         $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
         $scope.format = $scope.formats[0];
-        $scope.questionaireForm = {};
+        $scope.questionaireForm = {
+            questionsList: [],
+        };
         $scope.statusArray = [{
             value: 1,
             text: '草稿'
