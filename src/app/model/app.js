@@ -56,7 +56,7 @@ angular.module('app', [
             });
             // modalInstance.index = modalsStack.length + 1;
             backback(modalInstance);
-            return modalInstance;
+            return modalInstance.result;
         },
         close : function(args) {
             if(modalsStack.length) {
@@ -75,6 +75,21 @@ angular.module('app', [
     };
     return $diModal;
 }]).run(['$rootScope', '$state', function() {
+    Date.prototype.Format = function (fmt) {
+        var o = {
+            "M+": this.getMonth() + 1, // 月份
+            "d+": this.getDate(), // 日
+            "h+": this.getHours(), // 小时
+            "m+": this.getMinutes(), // 分
+            "s+": this.getSeconds(), // 秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), // 季度
+            "S": this.getMilliseconds() // 毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
     // axios的回复
     axios.interceptors.request.use(function (config) {
         return config;
@@ -128,6 +143,7 @@ angular.module('app', [
     'addQuestion': '/webdiapp/question/add',
     'updateQuestion': '/webdiapp/question/update',
     'listQuestions': '/webdiapp/question/list',
+    'removeQuestions': '/webdiapp/question/delete',
     'listQuestionTypes': '/webdiapp/questionType/list',
     'listQuestionaires': '/webdiapp/questionaire/list',
     'addQuestionaire': '/webdiapp/questionaire/add',
@@ -172,4 +188,26 @@ angular.module('app', [
     footable:       ['../vendor/jquery/footable/footable.all.min.js',
                         '../vendor/jquery/footable/footable.core.css']
     }
-)
+).service('$diConfirm', ['$diModal', '$rootScope', function ($diModal, $rootScope) {
+    'use strict';
+
+    var $diModalinstance = {
+        open : function() {
+            var $scope = $rootScope.$new();
+            $scope.confirm = function() {
+                $diModal.close();
+            };
+            $scope.close = function() {
+                $diModal.dismiss();
+            };
+            var modalInstance = $diModal.open({
+                templateUrl: 'pages/app/common/confirm/confirm-tmpl.html',
+                backdrop: true,
+                scope: $scope,
+                size: 'md'
+            });
+            return modalInstance;
+        }
+    };
+    return $diModalinstance;
+}])

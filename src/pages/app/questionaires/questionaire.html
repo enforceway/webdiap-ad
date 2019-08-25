@@ -43,9 +43,9 @@
 							<td ng-bind="que.statusId | statusFiler"></td>
 							<!-- <td ng-bind="que.workingField"></td> -->
 							<td>
-								<span ng-bind="que.activeDateStart"></span>-<span ng-bind="que.activeDateEnd"></span>
+								<span ng-bind="que.activeDateStart | diDate:'yyyy-MM-dd'"></span>至<span ng-bind="que.activeDateEnd | diDate:'yyyy-MM-dd'"></span>
 							</td>
-							<td ng-bind="que.creationTimestamp"></td>
+							<td ng-bind="que.creationTimestamp | diDate"></td>
 							<td>
 								<button class="btn m-b-xs btn-sm btn-default" ng-click="goToDelete(que)"><span>删除</span></button>
 								<button class="btn m-b-xs btn-sm btn-primary" ng-click="goToUpdate(que)">编辑</button>

@@ -33,7 +33,7 @@ angular.module('app').controller('addQuestionController', [
         };
         $scope.toaster = {
             type: 'success',
-            title: 'Title',
+            title: '信息提示',
             text: '添加成功'
         };
         $scope.submit = function() {
@@ -48,6 +48,7 @@ angular.module('app').controller('addQuestionController', [
                     url: $G.updateQuestion,
                     data: self.typeForm
                 }).then(function(res) {
+                    $diModal.close();
                     toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);
                 });
             } else {
@@ -56,10 +57,10 @@ angular.module('app').controller('addQuestionController', [
                     url: $G.addQuestion,
                     data: self.typeForm
                 }).then(function(res) {
+                    $diModal.close();
                     toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);
                 });
             }
-            $diModal.close();
         };
     }]
 );

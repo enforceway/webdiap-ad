@@ -167,7 +167,7 @@ angular.module('app').controller('addQuestionaireController', [
                 }
             });
             // 对选择的题目进行确认的方法
-            tmp.result.then($scope.confirmSelected)
+            tmp.then($scope.confirmSelected)
         };
         $scope.cancel = function() {
             $state.go('app.questionaires');

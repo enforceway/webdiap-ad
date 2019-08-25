@@ -14,3 +14,9 @@ angular.module('app')
     return ifActive;
   };
 }]);
+angular.module('app').filter('diDate', function() {
+  return function(text, str) {
+    str = str || 'yyyy-MM-dd hh:mm:ss'
+    return new Date(text).Format(str);
+  }
+});
