@@ -4,7 +4,7 @@
     </style>
     <div ng-controller="addQuestionaireController">
         <div class="wrapper-md">
-            <form name="form" class="form-validation form-horizontal">
+            <form name="questionaireForm" class="form-validation form-horizontal">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <span class="h4" translate="add"></span>
@@ -14,7 +14,7 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">问卷调查主题: </em></label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" ng-model="questionaireForm.title">
+                                <input type="text" class="form-control" ng-model="questionaireForm.title" required>
                             </div>
                         </div>
                         <div class="form-group" style="margin-bottom: 0;">

@@ -106,6 +106,10 @@ angular.module('app').controller('addQuestionaireController', [
             $diResource.get({
                 url: $G.listQuestionaires + '/' + $stateParams.questionaireId,
             }).then(function(res) {
+                if(!res) {
+                    toaster.pop('info', "提示", "未找到任何调查问卷");
+                    return;
+                }
                 $scope.originQuestionList = [];
                 $.extend(true, $scope.originQuestionList, res.questionsList);
                 $scope.$apply(function() {
@@ -183,13 +187,6 @@ angular.module('app').controller('addQuestionaireController', [
             ($scope.ifUpdate == true)?(params.id = $scope.questionaireForm.id):('');
             // $scope. 
             params.questionsList = $scope.questionaireForm.questionsList.map(function(que) {
-                var nq = {
-                    enabled: que.enabled?1:0,
-                    questionType: que.$$itemInputType,
-                    questionId: que.questionId,
-                    questionContent: que.questionContent,
-                    options: [],
-                };
                 var optTags = que.$$tags.map(function(item) {
                     var ntag = {
                         optionContent: item.text
@@ -199,6 +196,13 @@ angular.module('app').controller('addQuestionaireController', [
                     }
                     return ntag;
                 });
+                var nq = {
+                    enabled: que.enabled?1:0,
+                    questionType: que.$$itemInputType,
+                    questionId: que.questionId,
+                    questionContent: que.questionContent,
+                    options: optTags
+                };
                 if($scope.ifUpdate == true) {
                     $scope.originQuestionList.filter(function(queItem) {
                         return queItem.id == que.id
@@ -222,13 +226,17 @@ angular.module('app').controller('addQuestionaireController', [
                 return nq;
             });
             debugger
+            if($scope.questionaireForm.$invalid) {
+                alert('没有输入必填项');
+                return
+            }
             $diResource.post({
                 url: url,
                 data: params,
             }).then(function(res) {
+                toaster.pop('success', "提示", "创建成功");
                 $state.go('app.questionaires');
             });
-            toaster.pop('success', "提示", "创建成功");
         };
     }]
 );

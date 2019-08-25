@@ -90,6 +90,12 @@ angular.module('app', [
         if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
         return fmt;
     }
+}]).factory('$diResource', ['toaster', function(toaster) {
+    function errorPrompt(cfg) {
+        var message = cfg.response && cfg.response.data;
+        var title = '应用异常';
+        toaster.pop('error', title, message || 'message');
+    };
     // axios的回复
     axios.interceptors.request.use(function (config) {
         return config;
@@ -99,43 +105,28 @@ angular.module('app', [
     axios.interceptors.response.use(function (response) {
         if(response.status >= 200 && response.status < 400) {
             return response.data && response.data.data;
-            // return response.data;
         }
         return response;
     }, function (error) {
-
+        errorPrompt(error);
         return Promise.reject(error);
     });
-}]).factory('$diResource', ['toaster', function(toaster) {
-    function error(cfg) {
-        var message = cfg.response && cfg.response.data;
-        var title = '应用异常';
-        toaster.pop('error', title, message || 'message');
-    };
     var m = {
         get: function(opts) {
             opts.data = opts.data || {};
-            return axios.get(opts.url, opts.data).catch(function(err) {
-                error(err);
-            });
+            return axios.get(opts.url, opts.data);
         },
         post: function(opts) {
             opts.data = opts.data || {};
-            return axios.post(opts.url, opts.data).catch(function(err) {
-                error(err);
-            });
+            return axios.post(opts.url, opts.data);
         },
         put: function(opts) {
             opts.data = opts.data || {};
-            return axios.put(opts.url, opts.data).catch(function(err) {
-                error(err);
-            });
+            return axios.put(opts.url, opts.data);
         },
         delete: function(opts) {
             opts.data = opts.data || {};
-            return axios.delete(opts.url, opts.data).catch(function(err) {
-                error(err);
-            });
+            return axios.delete(opts.url, opts.data);
         }
     };
     return m;

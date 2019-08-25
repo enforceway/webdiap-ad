@@ -46,6 +46,7 @@ angular.module('app').directive('questionItemTable', function() {
             };
         }],
         link: function($scope, element, attrs, $controller) {
+            $scope.data = $scope.data || []
             $scope.itemRemove = $scope.itemRemove || function() {};
             $scope.onItemOptionRemoved = $scope.onItemOptionRemoved || function(){};
             // $scope.itemRemoveCallback = $scope.itemRemoveCallback || function() {};
