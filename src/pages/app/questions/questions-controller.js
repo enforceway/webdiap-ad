@@ -51,7 +51,6 @@ angular.module('app').controller('QuestionsController', ['$diConfirm', '$scope',
             size: 'md'
         });
         modalInstance.then(function() {
-            debugger
             $scope.search();
         }).catch(function() {
             debugger

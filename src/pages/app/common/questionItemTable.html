@@ -121,6 +121,17 @@
 .question-item-table .table.toggle-large > tbody > tr > td span.footable-toggle {
   font-size: 24px;
 }
+.question-item-table .question-item-removed .question-item-content p label,
+.question-item-table .question-item-removed .question-item-usability {
+  text-decoration-line: line-through;
+}
+.question-item-table .question-item-removed .question-item-index {
+  cursor: not-allowed;
+}
+.question-item-table .question-item-removed .question-item-operation .btn-group .btn-success {
+  background-color: #afb1b0;
+  border-color: #afb1b0;
+}
     </style>
     <div>
         <div class="table-responsive" style="padding-bottom: 0px;min-height: 240px;">
@@ -141,18 +152,18 @@
                     <tr ng-repeat="(index, item) in data" class="item-group" ng-class="{'question-item-answers-active': !!item.$$answersOnShow}">
                         <td>
                             <!-- 题目内容区域 -->
-                            <div class="clearfix">
-                                <div class="col-md-1 col-sm-1 col-lg-1">
+                            <div class="clearfix" ng-class="{'question-item-removed': !!item.$$removed}">
+                                <div class="col-md-1 col-sm-1 col-lg-1 question-item-index">
                                     <span class="footable-toggle" ng-class="{'toggle-disabled': !item.enabled}" ng-click="toggleQuestionItemAnswers(item, $event)"></span><label ng-bind="($index + 1)"></label>
                                 </div>
-                                <div class="col-md-2 col-sm-2 col-lg-2">
+                                <div class="col-md-2 col-sm-2 col-lg-2 question-item-operation">
                                     <div class="clearfix">
                                         <div class="m-b-sm" style="float:left;">
                                             <div class="btn-group dropdown" dropdown>
                                                 <label class="btn btn-sm btn-success">操作</label>
                                                 <button class="btn btn-sm btn-success" style="margin-left: 0px;" dropdown-toggle><span class="caret"></span></button>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="javascript:void(0)" ng-click="removeItemFn(item, index)">移除该题目</a></li>
+                                                    <li><a href="javascript:void(0)" ng-click="removeItemFn(item, index)" ng-bind="item.$$removed?'撤销移除':'移除该题目'"></a></li>
                                                     <li><a href="javascript:void(0)" ng-click="toggleDisableQuestionItem(item)" ng-bind="item.enabled?'停用该题目':'启用该题目'"></a></li>
                                                     <li><a href="javascript:void(0)">Something else here</a></li>
                                                     <li class="divider"></li>
@@ -162,10 +173,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-7 col-sm-7 col-lg-7">
+                                <div class="col-md-7 col-sm-7 col-lg-7 question-item-content">
                                     <p><label ng-bind="item.questionContent"></label></p>
                                 </div>
-                                <div>
+                                <div class="question-item-usability">
                                     <span class="label bg-light" title="禁用" ng-if="!item.enabled">Disabled</span>
                                     <span class="label bg-success" title="可用" ng-if="item.enabled">Active</span>
                                 </div>

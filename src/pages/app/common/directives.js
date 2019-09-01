@@ -6,7 +6,7 @@ angular.module('app').directive('questionItemTable', function() {
         // template: '<div>length of data is: <p ng-bind="data.length"></p></div>',
         templateUrl: 'pages/app/common/questionItemTable.html',
         scope: {
-            itemRemove: '=?',
+            onItemRemove: '=?',
             data: '=?',
             onItemOptionRemoved: '=?',
         },
@@ -24,9 +24,13 @@ angular.module('app').directive('questionItemTable', function() {
                 value: 4,
                 text: '长文本输入',
             }];
-            $scope.removeItemFn = function(arg1, arg2, arg3) {
-                // 是否是一个新加的问题，而不是已添加了的问题
-                $scope.itemRemove(arg1, arg2, arg3);
+            $scope.removeItemFn = function(rowData, arg2, arg3) {
+                rowData.$$answersOnShow = false;
+                rowData.enabled = !rowData.enabled;
+
+                rowData.$$removed = !rowData.$$removed;
+                
+                $scope.onItemRemove(rowData, arg2, arg3);
             };
             $scope.removeTagCallback = function(removedTag, $event) {
                 if(removedTag.$tag) {
@@ -47,7 +51,7 @@ angular.module('app').directive('questionItemTable', function() {
         }],
         link: function($scope, element, attrs, $controller) {
             $scope.data = $scope.data || []
-            $scope.itemRemove = $scope.itemRemove || function() {};
+            $scope.onItemRemove = $scope.onItemRemove || function() {};
             $scope.onItemOptionRemoved = $scope.onItemOptionRemoved || function(){};
             // $scope.itemRemoveCallback = $scope.itemRemoveCallback || function() {};
 

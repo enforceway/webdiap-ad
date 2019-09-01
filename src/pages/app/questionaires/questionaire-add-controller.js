@@ -17,8 +17,11 @@ angular.module('app').controller('addQuestionaireController', [
             }
         };
         $scope.queRemoveCallback = function(item, idex, config) {
+            return
             var $q = svcConfirm.confirm();
             $q.then(function() {
+
+                return;
                 var targetIndex = null;
                 if($scope.ifUpdate == true) {
                     var res = $scope.newAdded.find(function($item) {
@@ -118,7 +121,6 @@ angular.module('app').controller('addQuestionaireController', [
             });
         }
         $scope.reform = function(dist, source) {
-            debugger
             var attrs = ['id', 'title', 'statusId', 'activeDateStart', 'activeDateEnd', 'questionsList'];
             angular.forEach(source, function(index, attr) {
                 if(attrs.indexOf(attr) != - 1) {
@@ -186,7 +188,12 @@ angular.module('app').controller('addQuestionaireController', [
             };
             ($scope.ifUpdate == true)?(params.id = $scope.questionaireForm.id):('');
             // $scope. 
-            params.questionsList = $scope.questionaireForm.questionsList.map(function(que) {
+            params.questionsList = $scope.questionaireForm.questionsList.filter(function(que) {
+                if(que.$$removed == true) {
+                    return false;
+                }
+                return true;
+            }).map(function(que) {
                 var optTags = que.$$tags.map(function(item) {
                     var ntag = {
                         optionContent: item.text
@@ -226,16 +233,21 @@ angular.module('app').controller('addQuestionaireController', [
                 return nq;
             });
             debugger
-            if($scope.questionaireForm.$invalid) {
-                alert('没有输入必填项');
-                return
-            }
+            // if($scope.questionaireForm.$invalid) {
+            //     alert('没有输入必填项');
+            //     return
+            // }
             $diResource.post({
                 url: url,
                 data: params,
             }).then(function(res) {
-                toaster.pop('success', "提示", "创建成功");
-                $state.go('app.questionaires');
+                var msg = '创建成功'
+                debugger
+                if($scope.ifUpdate == true) {
+                    msg = '更新成功';
+                }
+                toaster.pop('success', "提示", msg);
+                // $state.go('app.questionaires');
             });
         };
     }]
