@@ -208,7 +208,8 @@ angular.module('app').controller('addQuestionaireController', [
                     questionType: que.$$itemInputType,
                     questionId: que.questionId,
                     questionContent: que.questionContent,
-                    options: optTags
+                    options: optTags,
+                    questionaireId: que.questionaireId
                 };
                 if($scope.ifUpdate == true) {
                     $scope.originQuestionList.filter(function(queItem) {
@@ -232,7 +233,6 @@ angular.module('app').controller('addQuestionaireController', [
                 }
                 return nq;
             });
-            debugger
             // if($scope.questionaireForm.$invalid) {
             //     alert('没有输入必填项');
             //     return
