@@ -242,12 +242,11 @@ angular.module('app').controller('addQuestionaireController', [
                 data: params,
             }).then(function(res) {
                 var msg = '创建成功'
-                debugger
                 if($scope.ifUpdate == true) {
                     msg = '更新成功';
                 }
                 toaster.pop('success', "提示", msg);
-                // $state.go('app.questionaires');
+                $state.go('app.questionaires');
             });
         };
     }]
