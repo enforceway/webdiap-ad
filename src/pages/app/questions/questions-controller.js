@@ -1,6 +1,7 @@
 'use strict';
 
-angular.module('app').controller('QuestionsController', ['$diConfirm', '$scope', '$G', '$diModal', '$diResource', '$http', 'toaster', function($diConfirm, $scope, $G, $diModal, $diResource, $http, toaster) {
+angular.module('app').controller('QuestionsController', ['$diBootstrapPager', '$diConfirm', '$scope', '$G', '$diModal', '$diResource', '$http', 'toaster', 
+function($diBootstrapPager, $diConfirm, $scope, $G, $diModal, $diResource, $http, toaster) {
     $scope.questions = [];
     $scope.searchForm = {
         keyWord: ''
@@ -61,15 +62,24 @@ angular.module('app').controller('QuestionsController', ['$diConfirm', '$scope',
         params = params || {};
         $diResource.get({
             url: $G.listQuestions,
-            data: {}
+            data: {
+                title: params.title || '',
+            }
         }).then(function(res) {
             $scope.$apply(function () {
-                $scope.questions = res;
+                $scope.questions = res.data;
+                $diBootstrapPager.bpager($('.callBackPager'), {
+                    totalCount: res.pagination.total,
+                    // showCount: 0,
+                    limit: res.pagination.pageSize
+                })
             });
         });
     };
     $scope.search = function() {
-        $scope.getQuesitions({});
+        $scope.getQuesitions({
+            title: $scope.searchForm.keyWord
+        });
     };
     $scope.search();
     // $scope.filterOptions = {

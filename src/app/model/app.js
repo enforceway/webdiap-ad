@@ -114,7 +114,9 @@ angular.module('app', [
     var m = {
         get: function(opts) {
             opts.data = opts.data || {};
-            return axios.get(opts.url, opts.data);
+            return axios.get(opts.url, {
+                params: opts.data
+            });
         },
         post: function(opts) {
             opts.data = opts.data || {};
@@ -201,4 +203,23 @@ angular.module('app', [
         }
     };
     return $diModalinstance;
+}]).service('$diBootstrapPager', ['$rootScope', function($rootScope) {
+    var m = {
+        bpager: function(dom, pagerCfg) {
+            pagerCfg = pagerCfg || {
+                totalCount: 0,
+                showCount: 0,
+                limit: 1
+            }
+            $(dom).extendPagination({
+                totalCount: pagerCfg.totalCount,
+                // showCount: pagerCfg.showCount,
+                limit: pagerCfg.limit,
+                callback: function (curr, limit, totalCount) {
+                    
+                }
+            });
+        }
+    };
+    return m;
 }])
