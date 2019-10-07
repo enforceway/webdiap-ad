@@ -32,7 +32,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="que in questions">
+						<tr ng-repeat="que in searchForm.questions">
 							<td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
 							<td ng-bind="que.questionContent"></td>
 							<td ng-bind="que.questionType"></td>
