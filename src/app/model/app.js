@@ -208,15 +208,15 @@ angular.module('app', [
         bpager: function(dom, pagerCfg) {
             pagerCfg = pagerCfg || {
                 totalCount: 0,
-                showCount: 0,
-                limit: 1
+                showPage: 1,
+                limit: 10
             }
             $(dom).extendPagination({
-                totalCount: pagerCfg.totalCount,
-                // showCount: pagerCfg.showCount,
-                limit: pagerCfg.limit,
+                totalCount: pagerCfg.totalCount || 0,
+                showCount: pagerCfg.showPage || 1,
+                limit: pagerCfg.limit || 10,
                 callback: function (curr, limit, totalCount) {
-                    
+                    pagerCfg.callback && pagerCfg.callback(curr, limit);
                 }
             });
         }

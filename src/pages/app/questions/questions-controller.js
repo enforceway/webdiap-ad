@@ -7,8 +7,10 @@ function($diBootstrapPager, $diConfirm, $scope, $G, $diModal, $diResource, $http
         questions: [],
         pagination: {
             total: 0,
-            pageSize: 0,
-            pageIndex: 0
+            pageSize: 6,
+            curPage: 1,
+            dataRangeStart: 0,
+            dataRangeEnd: 0,
         }
     };
     $scope.goToUpdate = function(item) {
@@ -69,15 +71,27 @@ function($diBootstrapPager, $diConfirm, $scope, $G, $diModal, $diResource, $http
             url: $G.listQuestions,
             data: {
                 title: params.title || '',
+                pageNo: $scope.searchForm.pagination.curPage,
+                pageSize: $scope.searchForm.pagination.pageSize
             }
         }).then(function(res) {
             $scope.$apply(function () {
                 $scope.searchForm.questions = res.data;
-                $diBootstrapPager.bpager($('.callBackPager'), {
-                    totalCount: res.pagination.total,
-                    // showCount: res.pagination.curPage,
-                    limit: res.pagination.pageSize
-                })
+                $scope.searchForm.pagination.curPage = res.pagination.curPage;
+                $scope.searchForm.pagination.pageSize = res.pagination.pageSize;
+                $scope.searchForm.pagination.total = res.pagination.total;
+                if($scope.searchForm.pagination.curPage == 1) {
+                    $diBootstrapPager.bpager($('.callBackPager'), {
+                        totalCount: res.pagination.total,
+                        showPage: res.pagination.curPage,
+                        limit: res.pagination.pageSize,
+                        callback: function(curr, limit) {
+                            $scope.searchForm.pagination.curPage = curr;
+                            $scope.searchForm.pagination.pageSize = limit;
+                            $scope.search();
+                        }
+                    })
+                }
             });
         });
     };
@@ -86,6 +100,9 @@ function($diBootstrapPager, $diConfirm, $scope, $G, $diModal, $diResource, $http
             title: $scope.searchForm.keyWord
         });
     };
+    $scope.$watch('searchForm.pagination', function(nValue) {
+        $scope.searchForm.pagination.dataRangeStart = nValue.pageSize * (nValue.curPage - 1) + 1;
+        $scope.searchForm.pagination.dataRangeEnd = Math.min(nValue.pageSize * nValue.curPage, nValue.total || 0)
+    }, true);
     $scope.search();
-    $scope.myData = [];
 }]);

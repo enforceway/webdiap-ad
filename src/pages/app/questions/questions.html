@@ -9,7 +9,7 @@
 				<div class="col-sm-4"></div>
 				<div class="col-sm-3">
 					<div class="input-group">
-						<input type="text" class="input-sm form-control" placeholder="Search" ng-model="searchForm.keyWord">
+						<input type="text" class="input-sm form-control" placeholder="请输入" ng-model="searchForm.keyWord">
 						<span class="input-group-btn">
 							<button class="btn btn-sm btn-default" type="button" ng-click="search()">搜索</button>
 						</span>
@@ -48,7 +48,7 @@
 			<footer class="panel-footer">
 				<div class="row">
 					<div class="col-sm-4">
-						<small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
+						<small class="text-muted inline m-t-sm m-b-sm">showing {{searchForm.pagination.dataRangeStart}}-{{searchForm.pagination.dataRangeEnd}} of {{searchForm.pagination.total}} items</small>
 					</div>
 					<div class="col-sm-4 text-right text-center-xs">
 						<div class="callBackPager"></div>
