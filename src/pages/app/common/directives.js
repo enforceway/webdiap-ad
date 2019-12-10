@@ -165,7 +165,7 @@ angular.module('app').controller('questionPanelController', [
                 data: {}
             }).then(function(res) {
                 $scope.$apply(function () {
-                    $scope.data4Questions = res;
+                    $scope.data4Questions = res.data;
                 });
             });
         };

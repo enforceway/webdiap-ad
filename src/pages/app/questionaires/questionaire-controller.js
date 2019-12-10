@@ -1,9 +1,27 @@
 'use strict';
 
 angular.module('app').controller('QuestionaireController', [
-    'svcConfirm', '$state', '$scope', '$G', '$diModal', '$diResource', '$http', 'toaster',
-    function(svcConfirm, $state, $scope, $G, $diModal, $diResource, $http, toaster) {
-    $scope.data4Questionaires = [];
+    '$diBootstrapPager',
+    'svcConfirm', 
+    '$state', 
+    '$scope', 
+    '$G',
+    '$diModal',
+    '$diResource',
+    '$http',
+    'toaster',
+    function($diBootstrapPager, svcConfirm, $state, $scope, $G, $diModal, $diResource, $http, toaster) {
+    $scope.searchForm = {
+        keyWord: '',
+        questionaires: [],
+        pagination: {
+            total: 0,
+            pageSize: 6,
+            curPage: 1,
+            dataRangeStart: 0,
+            dataRangeEnd: 0,
+        }
+    };
     $scope.goToUpdate = function(item) {
         $state.go('app.updateQuestionaire', {
             questionaireId: item.id,
@@ -48,7 +66,22 @@ angular.module('app').controller('QuestionaireController', [
             }
         }).then(function(res) {
             $scope.$apply(function () {
-                $scope.data4Questionaires = res;
+                $scope.searchForm.questionaires = res.data;
+                $scope.searchForm.pagination.curPage = res.pagination.curPage;
+                $scope.searchForm.pagination.pageSize = res.pagination.pageSize;
+                $scope.searchForm.pagination.total = res.pagination.total;
+                if($scope.searchForm.pagination.curPage == 1) {
+                    $diBootstrapPager.bpager($('.callBackPager'), {
+                        totalCount: res.pagination.total,
+                        showPage: res.pagination.curPage,
+                        limit: res.pagination.pageSize,
+                        callback: function(curr, limit) {
+                            $scope.searchForm.pagination.curPage = curr;
+                            $scope.searchForm.pagination.pageSize = limit;
+                            $scope.search();
+                        }
+                    })
+                }
             });
         });
     };

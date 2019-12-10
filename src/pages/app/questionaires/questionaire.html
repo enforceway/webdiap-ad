@@ -21,7 +21,7 @@
 					<thead>
 						<tr>
 							<th style="width:20px;">
-								<label class="i-checks m-b-none" ng-show="data4Questionaires.length > 0">
+								<label class="i-checks m-b-none" ng-show="searchForm.questionaires.length > 0">
 									<input type="checkbox"><i></i>
 								</label>
 							</th>
@@ -34,8 +34,8 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-if="data4Questionaires.length == 0" style="background-color: transparent;"><td style="background-color: transparent;text-align: center; " colspan="7" style="text-align: center;">暂无任何题目添加</td></tr>
-						<tr ng-repeat="que in data4Questionaires">
+						<tr ng-if="searchForm.questionaires.length == 0" style="background-color: transparent;"><td style="background-color: transparent;text-align: center; " colspan="7" style="text-align: center;">暂无任何题目添加</td></tr>
+						<tr ng-repeat="que in searchForm.questionaires">
 							<td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
 							<td ng-bind="que.title"></td>
 							<!-- 1代表草稿状态 -->
@@ -55,6 +55,14 @@
 				</table>
 			</div>
 			<footer class="panel-footer">
+				<div class="row">
+					<div class="col-sm-4">
+						<small class="text-muted inline m-t-sm m-b-sm">showing {{searchForm.pagination.dataRangeStart}}-{{searchForm.pagination.dataRangeEnd}} of {{searchForm.pagination.total}} items</small>
+					</div>
+					<div class="col-sm-4 text-right text-center-xs">
+						<div class="callBackPager"></div>
+					</div>
+				</div>
 				<!-- <div class="row">
 					<div class="col-sm-4">
 						<small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
