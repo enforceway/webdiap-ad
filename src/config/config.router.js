@@ -12,8 +12,8 @@ angular.module('app')
     ]
   )
   .config(['$stateProvider', '$urlRouterProvider',
-      function ($stateProvider,   $urlRouterProvider) {
-          $urlRouterProvider.otherwise('/app/questions');
+      function ($stateProvider, $urlRouterProvider) {
+          $urlRouterProvider.otherwise('/siginin');
           $stateProvider
               .state('app', {
                   // abstract: true,
@@ -29,6 +29,14 @@ angular.module('app')
                 //       }]
                 //   },
                   templateUrl: 'pages/app/app.html'
+              })
+              .state('siginin', {
+                url: '/siginin',
+                templateUrl: 'pages/access/signin/signin.html'
+              })
+              .state('nopermission', {
+                url: '/nopermission',
+                templateUrl: 'pages/access/nopermission/nopermission.html'
               })
               // questions
               .state('app.questions', {

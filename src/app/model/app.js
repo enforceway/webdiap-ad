@@ -90,7 +90,7 @@ angular.module('app', [
         if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
         return fmt;
     }
-}]).factory('$diResource', ['toaster', function(toaster) {
+}]).factory('$diResource', ['$state', 'toaster', function($state, toaster) {
     function errorPrompt(cfg) {
         var message = cfg.response && cfg.response.data;
         var title = '应用异常';
@@ -103,11 +103,20 @@ angular.module('app', [
         return Promise.reject(error);
     });
     axios.interceptors.response.use(function (response) {
-        if(response.status >= 200 && response.status < 400) {
-            return response.data && response.data.data;
+        if(response.status >= 200 && response.status < 300) {
+            return response.data;
         }
         return response;
     }, function (error) {
+        var response = error.response;
+        var status = response.status;
+        // 无权限情况下，让用户重新登录
+        if(status === 403) {
+            $state.go('siginin');
+            return Promise.reject(error);
+        } else {
+            
+        }
         errorPrompt(error);
         return Promise.reject(error);
     });
@@ -117,23 +126,48 @@ angular.module('app', [
             opts._t = Date.now();
             return axios.get(opts.url, {
                 params: opts.data
+            }).then(function(res) {
+                // status为1表示成功
+                if(res.status === 1) {
+                    return res.data;
+                }
+                return Promise.reject(res);
             });
         },
         post: function(opts) {
             opts.data = opts.data || {};
-            return axios.post(opts.url, opts.data);
+            return axios.post(opts.url, opts.data).then(function(res) {
+                // status为1表示成功
+                if(res.status === 1) {
+                    return res.data;
+                }
+                return Promise.reject(res);
+            });
         },
         put: function(opts) {
             opts.data = opts.data || {};
-            return axios.put(opts.url, opts.data);
+            return axios.put(opts.url, opts.data).then(function(res) {
+                // status为1表示成功
+                if(res.status === 1) {
+                    return res.data;
+                }
+                return Promise.reject(res);
+            });
         },
         delete: function(opts) {
             opts.data = opts.data || {};
-            return axios.delete(opts.url, opts.data);
+            return axios.delete(opts.url, opts.data).then(function(res) {
+                // status为1表示成功
+                if(res.status === 1) {
+                    return res.data;
+                }
+                return Promise.reject(res);
+            });
         }
     };
     return m;
 }]).constant('$G', {
+    'userLogin': '/webdiapp/users/login',
     'addQuestion': '/webdiapp/question/add',
     'updateQuestion': '/webdiapp/question/update',
     'listQuestions': '/webdiapp/question/list',
