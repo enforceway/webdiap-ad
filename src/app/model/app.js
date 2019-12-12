@@ -114,6 +114,7 @@ angular.module('app', [
     var m = {
         get: function(opts) {
             opts.data = opts.data || {};
+            opts._t = Date.now();
             return axios.get(opts.url, {
                 params: opts.data
             });

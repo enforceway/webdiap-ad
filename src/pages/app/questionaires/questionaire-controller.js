@@ -61,8 +61,9 @@ angular.module('app').controller('QuestionaireController', [
         $diResource.get({
             url: $G.listQuestionaires,
             data: {
-                pageNo: 1,
-                pageSize: 10,
+                subject: params.subject || '',
+                pageNo: $scope.searchForm.pagination.curPage,
+                pageSize: $scope.searchForm.pagination.pageSize
             }
         }).then(function(res) {
             $scope.$apply(function () {
@@ -86,7 +87,9 @@ angular.module('app').controller('QuestionaireController', [
         });
     };
     $scope.search = function() {
-        $scope.getQuestionaires({});
+        $scope.getQuestionaires({
+            subject: $scope.searchForm.keyWord
+        });
     };
     $scope.search();
     $scope.filterOptions = {
