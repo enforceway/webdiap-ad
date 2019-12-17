@@ -96,10 +96,23 @@ angular.module('app', [
         var title = '应用异常';
         toaster.pop('error', title, message || 'message');
     };
+    function error300(response) {
+        var headers = response.headers;
+        var content = headers['content-type'];
+        if(content.indexOf('javascript') >= 0) {
+            var tmpUrl = encodeURIComponent(window.location.href);
+            debugger
+            response.data && (window.location.href = response.data + "?redirect=" + tmpUrl);
+        }
+    };
+    function error400(response) {
+        $state.go('siginin');
+    };
     // axios的回复
     axios.interceptors.request.use(function (config) {
         return config;
     }, function (error) {
+        debugger
         return Promise.reject(error);
     });
     axios.interceptors.response.use(function (response) {
@@ -109,15 +122,25 @@ angular.module('app', [
         return response;
     }, function (error) {
         var response = error.response;
-        var status = response.status;
-        // 无权限情况下，让用户重新登录
-        if(status === 403) {
-            $state.go('siginin');
+        if(!response) {
+            // errorPrompt(error);
             return Promise.reject(error);
+        }
+
+        // if(!response) {
+        //     $state.go('siginin');
+        // }
+        if(response.status === 301 || response.status === 302) {
+            error300(response);
+        }
+        // 无权限情况下，让用户重新登录
+        else if(response.status === 403) {
+            error400(response);
+            // return Promise.reject(error);
         } else {
             
         }
-        errorPrompt(error);
+        // errorPrompt(error);
         return Promise.reject(error);
     });
     var m = {
