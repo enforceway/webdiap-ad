@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "dependencies": {
-    "http-proxy": "^1.17.0"
+    "http-proxy": "^1.18.1"
   },
   "devDependencies": {},
   "scripts": {
