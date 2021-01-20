@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./angular.1.7.8.js"></script>
+</head>
+<body>
+  <div ng-app="module_global">
+    <div ng-controller="module_root_controller">
+      <div><span>{{myname | camelize}}</span></div>
+      <input type="text" ng-model="myname" />
+    </div>
+  </div>
+  <script src="agtest.js"></script>
+</body>
+</html>

@@ -76,7 +76,7 @@ function($diBootstrapPager, $diConfirm, $scope, $G, $diModal, $diResource, $http
             }
         }).then(function(res) {
             $scope.$apply(function () {
-                $scope.searchForm.questions = res.data;
+                $scope.searchForm.questions = res.list;
                 $scope.searchForm.pagination.curPage = res.pagination.curPage;
                 $scope.searchForm.pagination.pageSize = res.pagination.pageSize;
                 $scope.searchForm.pagination.total = res.pagination.total;

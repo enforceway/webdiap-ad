@@ -67,7 +67,7 @@ angular.module('app').controller('QuestionaireController', [
             }
         }).then(function(res) {
             $scope.$apply(function () {
-                $scope.searchForm.questionaires = res.data;
+                $scope.searchForm.questionaires = res.list;
                 $scope.searchForm.pagination.curPage = res.pagination.curPage;
                 $scope.searchForm.pagination.pageSize = res.pagination.pageSize;
                 $scope.searchForm.pagination.total = res.pagination.total;

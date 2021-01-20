@@ -101,7 +101,6 @@ angular.module('app', [
         var content = headers['content-type'];
         if(content.indexOf('javascript') >= 0) {
             var tmpUrl = encodeURIComponent(window.location.href);
-            debugger
             response.data && (window.location.href = response.data + "?redirect=" + tmpUrl);
         }
     };
@@ -150,8 +149,8 @@ angular.module('app', [
             return axios.get(opts.url, {
                 params: opts.data
             }).then(function(res) {
-                // status为1表示成功
-                if(res.status === 1) {
+                // code为1表示成功
+                if(res.code == 0) {
                     return res.data;
                 }
                 return Promise.reject(res);
