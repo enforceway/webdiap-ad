@@ -194,7 +194,7 @@ angular.module('app').controller('addQuestionaireController', [
                 }
                 return true;
             }).map(function(que) {
-                var optTags = que.$$tags.map(function(item) {
+                var optTags = (que.$$tags || []).map(function(item) {
                     var ntag = {
                         optionContent: item.text
                     };
